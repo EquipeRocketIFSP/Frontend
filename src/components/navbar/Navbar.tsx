@@ -4,8 +4,6 @@ import BootstrapNavbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 interface Props {
     showLoginModal: () => void
 }
@@ -17,7 +15,7 @@ class Navbar extends React.Component<Props>{
         return (
             <BootstrapNavbar collapseOnSelect expand="lg" className="shadow">
                 <Container>
-                    <BootstrapNavbar.Brand href="#home">React-Bootstrap</BootstrapNavbar.Brand>
+                    <BootstrapNavbar.Brand href="#home">CertVet</BootstrapNavbar.Brand>
                     <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav" />
                     <BootstrapNavbar.Collapse className="justify-content-end">
 
