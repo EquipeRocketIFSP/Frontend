@@ -6,8 +6,14 @@ import Nav from "react-bootstrap/Nav";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-class Navbar extends React.Component {
+interface Props {
+    showLoginModal: () => void
+}
+
+class Navbar extends React.Component<Props>{
     render(): React.ReactNode {
+        const { showLoginModal } = this.props;
+
         return (
             <BootstrapNavbar collapseOnSelect expand="lg" className="shadow">
                 <Container>
@@ -16,7 +22,7 @@ class Navbar extends React.Component {
                     <BootstrapNavbar.Collapse className="justify-content-end">
 
                         <Nav>
-                            <Nav.Link>Acessar Conta</Nav.Link>
+                            <Nav.Link onClick={showLoginModal}>Acessar Conta</Nav.Link>
                             <Button>Criar Conta</Button>
                         </Nav>
 

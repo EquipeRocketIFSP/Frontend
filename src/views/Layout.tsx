@@ -1,18 +1,48 @@
-import React from "react";
+import React, { createContext } from "react";
 
 import Components from "../components/Components";
 
-class Layout extends React.Component<React.PropsWithChildren> {
+interface State {
+    modals: {
+        showLogin: boolean
+    }
+}
+
+class Layout extends React.Component<React.PropsWithChildren, State> {
+    constructor(props: React.PropsWithChildren) {
+        super(props);
+
+        this.state = {
+            modals: {
+                showLogin: false
+            }
+        };
+    }
+
     render(): React.ReactNode {
+        const { modals } = this.state;
+
         return (
             <>
-                <Components.Navbar />
+                <Components.Navbar showLoginModal={this.showLoginModal} />
 
                 {this.props.children}
 
-                
+                {modals.showLogin ? <Components.Login hideLoginModal={this.hideLoginModal} /> : <></>}
             </>
         );
+    }
+
+    private showLoginModal = (): void => {
+        const { modals } = this.state;
+
+        this.setState({ modals: { ...modals, showLogin: true } });
+    }
+
+    private hideLoginModal = (): void => {
+        const { modals } = this.state;
+
+        this.setState({ modals: { ...modals, showLogin: false } });
     }
 }
 
