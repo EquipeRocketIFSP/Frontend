@@ -13,7 +13,7 @@ class Navbar extends React.Component<Props>{
         const { showLoginModal } = this.props;
 
         return (
-            <BootstrapNavbar collapseOnSelect expand="lg" className="shadow">
+            <BootstrapNavbar collapseOnSelect expand="lg" className="bg-light shadow sticky-top">
                 <Container>
                     <BootstrapNavbar.Brand href="#home">CertVet</BootstrapNavbar.Brand>
                     <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -16,14 +16,14 @@ class Home extends React.Component {
             <Layout>
                 <main id="home">
                     <Components.Fullbanner src={fullbanner} alt="Fullbanner">
-                        <h2 style={{ textAlign: "center" }}>What is Lorem Ipsum?</h2>
+                        <h1 style={{ textAlign: "center" }}>Gerencie sua clínica veterinária</h1>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Gerencie suas consultas, procedimentos veterinários e medicamentos controlados.<br />
+                            Gere prontuários e documentos assinados digitalmente.<br />
+                            Crie sua conta e traga o seu certificado digital.
                         </p>
 
-                        <Button>Criar Conta</Button>
+                        <Button style={{ width: "220px" }}>Crie sua Conta</Button>
                     </Components.Fullbanner>
 
                     <Container>
@@ -31,33 +31,29 @@ class Home extends React.Component {
                         <section className="features">
                             <Card>
                                 <Card.Body>
-                                    <Card.Title>What is Lorem Ipsum?</Card.Title>
+                                    <Card.Title>Assinatura Digital</Card.Title>
                                     <Card.Text>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        O CertVet assina os documentos com uma assinatura digital de forma que
+                                        permita a fiscalização e rastreabilidade das alterações feitas.
+                                        Traga seu certificado digital.
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
 
                             <Card>
                                 <Card.Body>
-                                    <Card.Title>What is Lorem Ipsum?</Card.Title>
+                                    <Card.Title>Gerenciamento de Consultas</Card.Title>
                                     <Card.Text>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        O CertVet faz o gerenciamento de consultas, exames e cirugias de seus pacientes.
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
 
                             <Card>
                                 <Card.Body>
-                                    <Card.Title>What is Lorem Ipsum?</Card.Title>
+                                    <Card.Title>Mapeamento Genealógico</Card.Title>
                                     <Card.Text>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        O CertVet auxilia no mapeamento de consultas dos parentes de seus pacinetes.
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
