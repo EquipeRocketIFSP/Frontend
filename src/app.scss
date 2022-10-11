@@ -1,0 +1,14 @@
+@media (prefers-reduced-motion: no-preference) {
+  .loading {
+    animation: loadingAnimation infinite 2s linear;
+  }
+}
+
+@keyframes loadingAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
