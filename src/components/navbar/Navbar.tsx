@@ -7,12 +7,13 @@ import Nav from "react-bootstrap/Nav";
 import Storages from "./../../Storages";
 
 interface Props {
-    showLoginModal: () => void
+    showLoginModal: () => void,
+    showSigninModal: () => void,
 }
 
 class Navbar extends React.Component<Props>{
     render(): React.ReactNode {
-        const { showLoginModal } = this.props;
+        const { showLoginModal, showSigninModal } = this.props;
         const userData = Storages.userStorage.get();
 
         return (
@@ -32,14 +33,14 @@ class Navbar extends React.Component<Props>{
                                 (
                                     <Nav>
                                         <Nav.Link onClick={showLoginModal}>Acessar Conta</Nav.Link>
-                                        <Button>Criar Conta</Button>
+                                        <Button onClick={showSigninModal}>Criar Conta</Button>
                                     </Nav>
                                 )
                         }
 
                     </BootstrapNavbar.Collapse>
-                </Container >
-            </BootstrapNavbar >
+                </Container>
+            </BootstrapNavbar>
         );
     }
 
