@@ -1,8 +1,8 @@
 import Contracts from "./contracts/Contracts";
-import LocalStorage from "./helpers/LocalStorage";
+import Helpers from "./helpers/Helpers";
 
 namespace Storages {
-    export const userStorage = new LocalStorage<Contracts.UserData>("UserData")
+    export const userStorage = new Helpers.LocalStorage<Contracts.UserData>("UserData")
 }
 
 export default Storages;

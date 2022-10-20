@@ -7,9 +7,8 @@ import { Link } from "react-router-dom";
 
 import Components from "../../../components/Components";
 import Layout from "../../Layout";
-import Masks from "../../../helpers/Masks";
 import Contracts from "../../../contracts/Contracts";
-import Address from "../../../helpers/Address";
+import Helpers from "./../../../helpers/Helpers";
 
 interface State {
     address: Contracts.ViaCEPAddress,
@@ -74,7 +73,7 @@ class FormClinica extends React.Component<any, State> {
                                     <Form.Group className="mb-3 col-lg-6">
                                         <Form.Label htmlFor="cnpj">CNPJ*</Form.Label>
                                         <Form.Control type="tel" name="cnpj" id="cnpj"
-                                            onInput={(evt) => evt.currentTarget.value = Masks.cnpj(evt.currentTarget.value)} autoFocus required />
+                                            onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cnpj(evt.currentTarget.value)} autoFocus required />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3 col-lg-6">
@@ -102,7 +101,7 @@ class FormClinica extends React.Component<any, State> {
                                     <Form.Group className="mb-3 col-lg-2">
                                         <Form.Label htmlFor="numero">Número*</Form.Label>
                                         <Form.Control type="tel" name="numero" id="numero"
-                                            onInput={(evt) => evt.currentTarget.value = Masks.number(evt.currentTarget.value)} autoFocus required />
+                                            onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)} autoFocus required />
                                     </Form.Group>
                                 </Row>
 
@@ -135,13 +134,13 @@ class FormClinica extends React.Component<any, State> {
                                     <Form.Group className="mb-3 col-lg-6">
                                         <Form.Label htmlFor="celular">Celular*</Form.Label>
                                         <Form.Control type="tel" name="celular" id="celular"
-                                            onInput={(evt) => evt.currentTarget.value = Masks.celphone(evt.currentTarget.value)} autoFocus required />
+                                            onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)} autoFocus required />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3 col-lg-6">
                                         <Form.Label htmlFor="telefone">Telefone</Form.Label>
                                         <Form.Control type="tel" name="telefone" id="telefone"
-                                            onInput={(evt) => evt.currentTarget.value = Masks.phone(evt.currentTarget.value)} autoFocus />
+                                            onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} autoFocus />
                                     </Form.Group>
                                 </Row>
 
@@ -169,14 +168,14 @@ class FormClinica extends React.Component<any, State> {
     }
 
     private loadUfs = async () => {
-        this.setState({ ufs: await Address.loadUfs() });
+        this.setState({ ufs: await Helpers.Address.loadUfs() });
     }
 
     private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
-        evt.currentTarget.value = Masks.cep(evt.currentTarget.value);
+        evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
-            this.setState({ address: await Address.loadAddress(evt.currentTarget.value) });
+            this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
     }
 }
 

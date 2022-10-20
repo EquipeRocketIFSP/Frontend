@@ -7,7 +7,7 @@ import Axios from "axios";
 //import { Redirect } from "react-router-dom";
 
 import Contracts from "../../contracts/Contracts";
-import LocalStorage from "../../helpers/LocalStorage";
+import Helpers from "../../helpers/Helpers";
 
 interface Props {
     hideLoginModal: () => void,
@@ -99,7 +99,7 @@ class Login extends React.Component<Props, State> {
 
             const { id, username } = data;
 
-            new LocalStorage<Contracts.UserData>("UserData").set({ id, username });
+            new Helpers.LocalStorage<Contracts.UserData>("UserData").set({ id, username });
 
             this.setState({ redirect: true });
             window.location.assign("/painel-demo-poc");

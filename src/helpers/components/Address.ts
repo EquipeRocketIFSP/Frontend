@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-import Contracts from "../contracts/Contracts";
+import Contracts from "../../contracts/Contracts";
 
 class Address {
     public static loadAddress = async (cep: string): Promise<Contracts.ViaCEPAddress> => {
