@@ -23,7 +23,7 @@ class Home extends React.Component {
                             Crie sua conta e traga o seu certificado digital.
                         </p>
 
-                        {/* <Button style={{ width: "220px" }}>Crie sua Conta</Button> */}
+                        <Button style={{ width: "220px" }}>Crie sua Conta</Button>
                     </Components.Fullbanner>
 
                     <Container>

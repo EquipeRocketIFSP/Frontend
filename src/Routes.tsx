@@ -1,14 +1,15 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
 import Views from "./views/Views";
 
 class Routes extends React.Component {
     render(): React.ReactNode {
         return (
-            //@ts-ignore
             <BrowserRouter>
-                <Route exact path="/" component={Views.Home} />
-                <Route exact path="/painel-demo-poc" component={Views.Painel} />
+                <RouterRoutes>
+                    <Route path="/" element={<Views.Home />} />
+                    <Route path="/cadastro-inicial" element={<Views.CadastroInicial />} />
+                </RouterRoutes>
             </BrowserRouter>
         );
     }

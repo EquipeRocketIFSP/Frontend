@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Axios from "axios";
-import { Redirect } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 
 import Contracts from "../../contracts/Contracts";
 import Storages from "../../Storages";

@@ -1,7 +1,7 @@
 import React from "react";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
-import { Redirect } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 import Contracts from "../../contracts/Contracts";
 import LocalStorage from "../../helpers/LocalStorage";
 
