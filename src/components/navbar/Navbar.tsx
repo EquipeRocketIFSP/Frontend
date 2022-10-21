@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 
 import Storages from "./../../Storages";
+import { Link } from "react-router-dom";
 
 interface Props {
     showLoginModal: () => void,
@@ -33,7 +34,7 @@ class Navbar extends React.Component<Props>{
                                 (
                                     <Nav>
                                         <Nav.Link onClick={showLoginModal}>Acessar Conta</Nav.Link>
-                                        <Button onClick={showSigninModal}>Criar Conta</Button>
+                                        <Link to="/cadastro-inicial" className="btn btn-primary">Criar Conta</Link>
                                     </Nav>
                                 )
                         }

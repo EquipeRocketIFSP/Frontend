@@ -9,6 +9,7 @@ import Layout from "../Layout";
 import fullbanner from "./../../fullbanner.jpg";
 
 import "./home.scss";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
     render(): React.ReactNode {
@@ -23,7 +24,7 @@ class Home extends React.Component {
                             Crie sua conta e traga o seu certificado digital.
                         </p>
 
-                        <Button style={{ width: "220px" }}>Crie sua Conta</Button>
+                        <Link to="/cadastro-inicial" className="btn btn-primary" style={{ width: "220px" }}>Crie sua Conta</Link>
                     </Components.Fullbanner>
 
                     <Container>
