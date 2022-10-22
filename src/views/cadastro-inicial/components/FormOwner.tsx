@@ -149,11 +149,20 @@ class FormOwner extends React.Component<Props, State> {
                                     onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} />
                             </Form.Group>
                         </Row>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Acesso</legend>
 
                         <Row>
-                            <Form.Group className="mb-3 col-lg-12">
+                            <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="dono-email">E-mail*</Form.Label>
                                 <Form.Control type="email" name="dono-email" id="dono-email" required />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3 col-lg-6">
+                                <Form.Label htmlFor="dono-senha">Senha*</Form.Label>
+                                <Form.Control type="password" name="dono-senha" id="dono-senha" required />
                             </Form.Group>
                         </Row>
                     </fieldset>

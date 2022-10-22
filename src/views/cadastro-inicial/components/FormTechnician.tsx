@@ -161,11 +161,20 @@ class FormTechnician extends React.Component<Props, State> {
                                     onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} />
                             </Form.Group>
                         </Row>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Acesso</legend>
 
                         <Row>
-                            <Form.Group className="mb-3 col-lg-12">
+                            <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-email">E-mail*</Form.Label>
                                 <Form.Control type="email" name="tecnico-email" id="tecnico-email" required />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3 col-lg-6">
+                                <Form.Label htmlFor="tecnico-senha">Senha*</Form.Label>
+                                <Form.Control type="password" name="tecnico-senha" id="tecnico-senha" required />
                             </Form.Group>
                         </Row>
                     </fieldset>
