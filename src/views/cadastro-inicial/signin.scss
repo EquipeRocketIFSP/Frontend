@@ -7,16 +7,20 @@
         margin-bottom: 30px;
     }
 
-    >.container{
+    > .container {
         position: absolute;
 
-        &.fade:not(.show){
+        @media (max-width: 767px) and (orientation: portrait) {
+            left: 0;
+        }
+
+        &.fade:not(.show) {
             z-index: -1;
-            transition: opacity .5s linear;
+            transition: opacity 0.5s linear;
         }
     }
 
-    .alert{
+    .alert {
         text-align: center;
         margin-top: 20px;
     }
