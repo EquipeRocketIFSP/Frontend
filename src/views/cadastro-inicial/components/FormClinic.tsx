@@ -12,6 +12,7 @@ import Container from "react-bootstrap/Container";
 
 interface Props {
     fadeIn: boolean,
+    setFormData: (formData: FormData) => void,
     setRegistrationStage: (registrationStage: RegistrationStage) => void
 }
 
@@ -57,7 +58,7 @@ class FormClinic extends React.Component<Props, State> {
 
                 <h1>Cadastrar Clínica</h1>
 
-                <Form>
+                <Form onSubmit={this.onSubmit}>
                     <fieldset>
                         <legend>Empresa</legend>
 
@@ -158,7 +159,7 @@ class FormClinic extends React.Component<Props, State> {
 
                     <div className="d-flex justify-content-between">
                         <Link className="btn btn-outline-secondary" to="/">Voltar</Link>
-                        <Button onClick={() => this.props.setRegistrationStage("owner")}>Continuar</Button>
+                        <Button type="submit">Continuar</Button>
                     </div>
                 </Form>
 
@@ -179,6 +180,15 @@ class FormClinic extends React.Component<Props, State> {
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
             this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
+    }
+
+    private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+
+        const { setFormData, setRegistrationStage } = this.props;
+
+        setFormData(new FormData(evt.currentTarget));
+        setRegistrationStage("owner");
     }
 }
 

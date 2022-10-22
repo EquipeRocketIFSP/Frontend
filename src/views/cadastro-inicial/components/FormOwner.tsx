@@ -12,6 +12,7 @@ import Container from "react-bootstrap/Container";
 
 interface Props {
     fadeIn: boolean,
+    setFormData: (formData: FormData) => void,
     setRegistrationStage: (registrationStage: RegistrationStage) => void
 }
 
@@ -63,7 +64,7 @@ class FormOwner extends React.Component<Props, State> {
 
                 <h1>Cadastrar Dono</h1>
 
-                <Form>
+                <Form onSubmit={this.onSubmit}>
                     <fieldset>
                         <legend>Dados Pessoais</legend>
 
@@ -159,7 +160,7 @@ class FormOwner extends React.Component<Props, State> {
 
                     <div className="d-flex justify-content-between">
                         <Button variant="outline-secondary" onClick={() => this.props.setRegistrationStage("clinic")}>Voltar</Button>
-                        <Button onClick={() => this.props.setRegistrationStage("technician")}>Continuar</Button>
+                        <Button type="submit">Continuar</Button>
                     </div>
                 </Form>
 
@@ -180,6 +181,15 @@ class FormOwner extends React.Component<Props, State> {
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
             this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
+    }
+
+    private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+
+        const { setFormData, setRegistrationStage } = this.props;
+
+        setFormData(new FormData(evt.currentTarget));
+        setRegistrationStage("technician");
     }
 }
 

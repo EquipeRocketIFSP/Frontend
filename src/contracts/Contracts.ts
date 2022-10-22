@@ -1,4 +1,8 @@
 namespace Contracts {
+    export interface DynamicObject<I> {
+        [key: string]: I
+    }
+
     export interface UserData {
         id: number,
         username: string
