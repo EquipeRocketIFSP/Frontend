@@ -1,20 +1,33 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import BootstrapNavbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 
 import Storages from "./../../Storages";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import Contracts from "../../contracts/Contracts";
 
 interface Props {
     showLoginModal: () => void,
 }
 
-class Navbar extends React.Component<Props>{
+interface State extends Contracts.Redirect { }
+
+class Navbar extends React.Component<Props, State>{
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            redirect: null
+        };
+    }
+
     render(): React.ReactNode {
         const { showLoginModal } = this.props;
         const userData = Storages.userStorage.get();
+
+        if (this.state.redirect)
+            return <Navigate to={this.state.redirect} />;
 
         return (
             <BootstrapNavbar collapseOnSelect expand="lg" className="bg-light shadow sticky-top">
@@ -46,7 +59,7 @@ class Navbar extends React.Component<Props>{
 
     private logout = (): void => {
         Storages.userStorage.truncate();
-        window.location.assign("/");
+        this.setState({ redirect: "/" });
     }
 }
 

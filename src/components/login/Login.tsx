@@ -4,19 +4,19 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Axios from "axios";
-//import { Redirect } from "react-router-dom";
 
+import env from "./../../env";
 import Contracts from "../../contracts/Contracts";
-import Helpers from "../../helpers/Helpers";
+import Storages from "../../Storages";
+import { Navigate } from "react-router-dom";
 
 interface Props {
     hideLoginModal: () => void,
 }
 
-interface State {
+interface State extends Contracts.Redirect {
     errorMessage: null | string,
-    submitButtonStatus: "Idle" | "Loading",
-    redirect: boolean
+    submitButtonStatus: "Idle" | "Loading"
 }
 
 class Login extends React.Component<Props, State> {
@@ -28,7 +28,7 @@ class Login extends React.Component<Props, State> {
         this.state = {
             errorMessage: null,
             submitButtonStatus: "Idle",
-            redirect: false
+            redirect: null
         };
 
         this.formRef = React.createRef<HTMLFormElement>();
@@ -37,6 +37,9 @@ class Login extends React.Component<Props, State> {
     render(): React.ReactNode {
         const { hideLoginModal } = this.props;
         const { errorMessage, submitButtonStatus, redirect } = this.state;
+
+        if (redirect)
+            return <Navigate to={redirect} />;
 
         return (
             <Modal show onHide={hideLoginModal}>
@@ -55,7 +58,7 @@ class Login extends React.Component<Props, State> {
                             ) : <></>
                     }
 
-                    <Form ref={this.formRef}>
+                    <Form ref={this.formRef} onSubmit={this.onSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label htmlFor="email">E-mail</Form.Label>
                             <Form.Control type="email" name="email" id="email" autoFocus required />
@@ -65,44 +68,39 @@ class Login extends React.Component<Props, State> {
                             <Form.Label htmlFor="password">Senha</Form.Label>
                             <Form.Control type="password" name="password" id="password" required />
                         </Form.Group>
+
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={hideLoginModal}>
+                                Cancelar
+                            </Button>
+
+                            <Button variant="primary" type="submit" className={submitButtonStatus == "Loading" ? "disabled" : ""}>
+                                {submitButtonStatus == "Idle" ? "Entrar" : (<i className="fa-solid fa-spinner loading"></i>)}
+                            </Button>
+                        </Modal.Footer>
                     </Form>
-
                 </Modal.Body>
-
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={hideLoginModal}>
-                        Cancelar
-                    </Button>
-                    <Button variant="primary" type="submit" onClick={this.onClickSubmit} className={submitButtonStatus == "Loading" ? "disabled" : ""}>
-                        {submitButtonStatus == "Idle" ? "Entrar" : (<i className="fa-solid fa-spinner loading"></i>)}
-                    </Button>
-                </Modal.Footer>
             </Modal>
         );
     }
 
-    private onClickSubmit = async (): Promise<void> => {
-        if (!this.formRef.current)
-            return;
+    private onSubmit = async (evt: React.FormEvent<HTMLFormElement>): Promise<void> => {
+        evt.preventDefault();
 
         this.setState({ submitButtonStatus: "Loading" });
 
-        const formData = new FormData(this.formRef.current);
+        let formData: Contracts.DynamicObject<string> = {};
+
+        new FormData(evt.currentTarget).forEach((value, key) => {
+            formData[key] = value.toString();
+        });
 
         try {
-            const { data } = await Axios.post<Contracts.UserData | string>("http://backend-poc.us-east-1.elasticbeanstalk.com:8080/login", { username: formData.get("email"), password: formData.get("password") });
+            const { data } = await Axios.post<Contracts.UserData>(`${env.API}/auth`, formData);
 
-            if (typeof data == "string") {
-                this.setState({ errorMessage: "Senha e/ou e-mail invalidos.", submitButtonStatus: "Idle" });
-                return;
-            }
+            Storages.userStorage.set(data);
 
-            const { id, username } = data;
-
-            new Helpers.LocalStorage<Contracts.UserData>("UserData").set({ id, username });
-
-            this.setState({ redirect: true });
-            window.location.assign("/painel-demo-poc");
+            this.setState({ redirect: "/painel" });
         } catch (error) {
             console.error(error);
 

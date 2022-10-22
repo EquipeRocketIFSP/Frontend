@@ -4,8 +4,8 @@ namespace Contracts {
     }
 
     export interface UserData {
-        id: number,
-        username: string
+        token: string,
+        bearer: string
     }
 
     export interface Redirect {

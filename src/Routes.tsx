@@ -9,6 +9,7 @@ class Routes extends React.Component {
                 <RouterRoutes>
                     <Route path="/" element={<Views.Home />} />
                     <Route path="/cadastro-inicial" element={<Views.SignIn />} />
+                    <Route path="/painel" element={<Views.SignIn />} />
                 </RouterRoutes>
             </BrowserRouter>
         );
