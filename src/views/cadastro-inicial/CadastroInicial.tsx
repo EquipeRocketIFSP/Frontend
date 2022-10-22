@@ -1,25 +1,44 @@
 import React from "react";
-import FormClinica from "./components/FormClinica";
+import Container from "react-bootstrap/Container";
+
+import FormClinic from "./components/FormClinic";
+import FormOwner from "./components/FormOwner";
 
 import "./cadastro-inicial.scss";
+import Layout from "../Layout";
 
-interface State { }
+type RegistrationStage = "clinic" | "owner" | "technician";
+
+interface State {
+    registrationStage: RegistrationStage
+}
 
 class CadastroInicial extends React.Component<any, State> {
     constructor(props: any) {
         super(props);
 
         this.state = {
+            registrationStage: "clinic"
         };
     }
 
     render(): React.ReactNode {
+        const { registrationStage } = this.state;
+
         return (
-            <>
-                <FormClinica />
-            </>
+            <Layout>
+                <Container>
+                    <main id="cadastro-inicial">
+                        <FormClinic setRegistrationStage={this.setRegistrationStage} fadeIn={registrationStage == "clinic"} />
+                        <FormOwner setRegistrationStage={this.setRegistrationStage} fadeIn={registrationStage == "owner"} />
+                    </main>
+                </Container>
+            </Layout>
         );
     }
+
+    private setRegistrationStage = (registrationStage: RegistrationStage): void => this.setState({ registrationStage });
 }
 
 export default CadastroInicial;
+export type { RegistrationStage };
