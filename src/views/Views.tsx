@@ -1,5 +1,5 @@
 import HomeView from "./home/Home";
-import SignInView from "./cadastro-inicial/SignIn";
+import SignInView from "./signin/SignIn";
 
 namespace Views {
     export const Home = HomeView;
