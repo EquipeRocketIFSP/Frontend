@@ -10,7 +10,7 @@ import FormClinic from "./components/FormClinic";
 import FormOwner from "./components/FormOwner";
 import FormTechnician from "./components/FormTechnician";
 
-import "./cadastro-inicial.scss";
+import "./signin.scss";
 
 type RegistrationStage = "clinic" | "owner" | "technician" | "send";
 
@@ -22,7 +22,7 @@ interface State extends Contracts.Redirect {
     technicianForm: FormData,
 }
 
-class CadastroInicial extends React.Component<any, State> {
+class SignIn extends React.Component<any, State> {
     constructor(props: any) {
         super(props);
 
@@ -103,5 +103,5 @@ class CadastroInicial extends React.Component<any, State> {
     }
 }
 
-export default CadastroInicial;
+export default SignIn;
 export type { RegistrationStage };

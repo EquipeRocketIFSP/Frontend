@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
-import { RegistrationStage } from "../CadastroInicial";
+import { RegistrationStage } from "../SignIn";
 import Container from "react-bootstrap/Container";
 
 interface Props {

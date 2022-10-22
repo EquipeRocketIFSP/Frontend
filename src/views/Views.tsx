@@ -1,12 +1,12 @@
 import HomeView from "./home/Home";
-import CadastroInicialView from "./cadastro-inicial/CadastroInicial";
+import SignInView from "./cadastro-inicial/SignIn";
 
 namespace Views {
     export const Home = HomeView;
-    export const CadastroInicial = CadastroInicialView;
+    export const SignIn = SignInView;
 
     export type Home = HomeView;
-    export type CadastroInicial = CadastroInicialView;
+    export type SignIn = SignInView;
 }
 
 export default Views;
