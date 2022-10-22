@@ -20,7 +20,7 @@ interface State {
     ufs: Contracts.IBGEUF[]
 }
 
-class FormOwner extends React.Component<Props, State> {
+class FormTechnician extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
@@ -58,32 +58,44 @@ class FormOwner extends React.Component<Props, State> {
                         }}>Cadastrar Clinica</a>
                     </li>
 
-                    <li className="breadcrumb-item active">Cadastrar Dono</li>
+                    <li className="breadcrumb-item">
+                        <a href="" onClick={(evt) => {
+                            evt.preventDefault();
+                            this.props.setRegistrationStage("owner");
+                        }}>Cadastrar Dono</a>
+                    </li>
+
+                    <li className="breadcrumb-item active">Cadastrar Responsável Técnico</li>
                 </Components.Breadcrumbs>
 
-                <h1>Cadastrar Dono</h1>
+                <h1>Cadastrar Responsável Técnico</h1>
 
-                <Form>
+                <Form onSubmit={()=>console.log("l~çfdkfçl")}>
                     <fieldset>
                         <legend>Dados Pessoais</legend>
 
                         <Row>
-                            <Form.Group className="mb-3 col-lg-12">
-                                <Form.Label htmlFor="dono-nome-fantasia">Nome*</Form.Label>
-                                <Form.Control type="text" name="dono-nome-fantasia" id="dono-nome-fantasia" required />
+                            <Form.Group className="mb-3 col-lg-10">
+                                <Form.Label htmlFor="tecnico-nome">Nome*</Form.Label>
+                                <Form.Control type="text" name="tecnico-nome" id="tecnico-nome" required />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3 col-lg-2">
+                                <Form.Label htmlFor="tecnico-crmv">CRMV*</Form.Label>
+                                <Form.Control type="text" name="tecnico-crmv" id="tecnico-crmv" required />
                             </Form.Group>
                         </Row>
 
                         <Row>
                             <Form.Group className="mb-3 col-lg-6">
-                                <Form.Label htmlFor="dono-cpf">CPF*</Form.Label>
-                                <Form.Control type="tel" name="dono-cpf" id="dono-cpf"
+                                <Form.Label htmlFor="tecnico-cpf">CPF*</Form.Label>
+                                <Form.Control type="tel" name="tecnico-cpf" id="tecnico-cpf"
                                     onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
-                                <Form.Label htmlFor="dono-rg">RG*</Form.Label>
-                                <Form.Control type="tel" name="dono-rg" id="dono-rg" required />
+                                <Form.Label htmlFor="tecnico-rg">RG*</Form.Label>
+                                <Form.Control type="tel" name="tecnico-rg" id="tecnico-rg" required />
                             </Form.Group>
                         </Row>
                     </fieldset>
@@ -93,37 +105,37 @@ class FormOwner extends React.Component<Props, State> {
 
                         <Row>
                             <Form.Group className="mb-3 col-lg-2">
-                                <Form.Label htmlFor="dono-cep">CEP*</Form.Label>
-                                <Form.Control type="tel" name="dono-cep" id="dono-cep"
+                                <Form.Label htmlFor="tecnico-cep">CEP*</Form.Label>
+                                <Form.Control type="tel" name="tecnico-cep" id="tecnico-cep"
                                     onInput={this.onInputCep} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col">
-                                <Form.Label htmlFor="dono-logradouro">Logradouro*</Form.Label>
-                                <Form.Control type="text" name="dono-logradouro" id="dono-logradouro" defaultValue={address.logradouro} required />
+                                <Form.Label htmlFor="tecnico-logradouro">Logradouro*</Form.Label>
+                                <Form.Control type="text" name="tecnico-logradouro" id="tecnico-logradouro" defaultValue={address.logradouro} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-2">
-                                <Form.Label htmlFor="dono-numero">Número*</Form.Label>
-                                <Form.Control type="tel" name="dono-numero" id="dono-numero"
+                                <Form.Label htmlFor="tecnico-numero">Número*</Form.Label>
+                                <Form.Control type="tel" name="tecnico-numero" id="tecnico-numero"
                                     onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)} required />
                             </Form.Group>
                         </Row>
 
                         <Row>
                             <Form.Group className="mb-3 col-lg-5">
-                                <Form.Label htmlFor="dono-bairro">Bairro*</Form.Label>
-                                <Form.Control type="text" name="dono-bairro" id="dono-bairro" defaultValue={address.bairro} required />
+                                <Form.Label htmlFor="tecnico-bairro">Bairro*</Form.Label>
+                                <Form.Control type="text" name="tecnico-bairro" id="tecnico-bairro" defaultValue={address.bairro} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-5">
-                                <Form.Label htmlFor="dono-cidade">Cidade*</Form.Label>
-                                <Form.Control type="text" name="dono-cidade" id="dono-cidade" defaultValue={address.localidade} required />
+                                <Form.Label htmlFor="tecnico-cidade">Cidade*</Form.Label>
+                                <Form.Control type="text" name="tecnico-cidade" id="tecnico-cidade" defaultValue={address.localidade} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-2">
-                                <Form.Label htmlFor="dono-estado">Estado*</Form.Label>
-                                <Form.Select name="dono-estado" id="dono-estado" defaultValue={address.uf} required>
+                                <Form.Label htmlFor="tecnico-estado">Estado*</Form.Label>
+                                <Form.Select name="tecnico-estado" id="tecnico-estado" defaultValue={address.uf} required>
                                     <option value="">Selecione</option>
 
                                     {ufs.map((uf) => <option value={uf.sigla} key={uf.id}>{uf.sigla}</option>)}
@@ -137,29 +149,29 @@ class FormOwner extends React.Component<Props, State> {
 
                         <Row>
                             <Form.Group className="mb-3 col-lg-6">
-                                <Form.Label htmlFor="dono-celular">Celular*</Form.Label>
-                                <Form.Control type="tel" name="dono-celular" id="dono-celular"
+                                <Form.Label htmlFor="tecnico-celular">Celular*</Form.Label>
+                                <Form.Control type="tel" name="tecnico-celular" id="tecnico-celular"
                                     onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)} required />
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
-                                <Form.Label htmlFor="dono-telefone">Telefone</Form.Label>
-                                <Form.Control type="tel" name="dono-telefone" id="dono-telefone"
+                                <Form.Label htmlFor="tecnico-telefone">Telefone</Form.Label>
+                                <Form.Control type="tel" name="tecnico-telefone" id="tecnico-telefone"
                                     onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} />
                             </Form.Group>
                         </Row>
 
                         <Row>
                             <Form.Group className="mb-3 col-lg-12">
-                                <Form.Label htmlFor="dono-email">E-mail*</Form.Label>
-                                <Form.Control type="email" name="dono-email" id="dono-email" required />
+                                <Form.Label htmlFor="tecnico-email">E-mail*</Form.Label>
+                                <Form.Control type="email" name="tecnico-email" id="tecnico-email" required />
                             </Form.Group>
                         </Row>
                     </fieldset>
 
                     <div className="d-flex justify-content-between">
-                        <Button variant="outline-secondary" onClick={() => this.props.setRegistrationStage("clinic")}>Voltar</Button>
-                        <Button onClick={() => this.props.setRegistrationStage("technician")}>Continuar</Button>
+                        <Button variant="outline-secondary" onClick={() => this.props.setRegistrationStage("owner")}>Voltar</Button>
+                        <Button variant="success" type="submit" onClick={() => this.props.setRegistrationStage("technician")}>Finalizar</Button>
                     </div>
                 </Form>
 
@@ -183,4 +195,4 @@ class FormOwner extends React.Component<Props, State> {
     }
 }
 
-export default FormOwner;
+export default FormTechnician;

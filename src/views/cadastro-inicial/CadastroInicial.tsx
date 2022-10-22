@@ -6,6 +6,7 @@ import FormOwner from "./components/FormOwner";
 
 import "./cadastro-inicial.scss";
 import Layout from "../Layout";
+import FormTechnician from "./components/FormTechnician";
 
 type RegistrationStage = "clinic" | "owner" | "technician";
 
@@ -31,6 +32,7 @@ class CadastroInicial extends React.Component<any, State> {
                     <main id="cadastro-inicial">
                         <FormClinic setRegistrationStage={this.setRegistrationStage} fadeIn={registrationStage == "clinic"} />
                         <FormOwner setRegistrationStage={this.setRegistrationStage} fadeIn={registrationStage == "owner"} />
+                        <FormTechnician setRegistrationStage={this.setRegistrationStage} fadeIn={registrationStage == "technician"} />
                     </main>
                 </Container>
             </Layout>

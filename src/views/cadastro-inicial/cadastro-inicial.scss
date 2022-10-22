@@ -9,5 +9,10 @@
 
     >.container{
         position: absolute;
+
+        &.fade:not(.show){
+            z-index: -1;
+            transition: opacity .5s linear;
+        }
     }
 }
