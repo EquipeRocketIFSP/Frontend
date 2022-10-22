@@ -9,12 +9,11 @@ import { Link } from "react-router-dom";
 
 interface Props {
     showLoginModal: () => void,
-    showSigninModal: () => void,
 }
 
 class Navbar extends React.Component<Props>{
     render(): React.ReactNode {
-        const { showLoginModal, showSigninModal } = this.props;
+        const { showLoginModal } = this.props;
         const userData = Storages.userStorage.get();
 
         return (
