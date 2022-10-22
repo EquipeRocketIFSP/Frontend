@@ -8,15 +8,12 @@
     }
 
     > .container {
-        position: absolute;
-
-        @media (max-width: 767px) and (orientation: portrait) {
-            left: 0;
-        }
-
         &.fade:not(.show) {
             z-index: -1;
             transition: opacity 0.5s linear;
+            position: absolute;
+            top: 0;
+            max-height: 100vh;
         }
     }
 
