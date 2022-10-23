@@ -32,7 +32,13 @@ class Navbar extends React.Component<Props, State>{
         return (
             <BootstrapNavbar collapseOnSelect expand="lg" className="bg-light shadow sticky-top">
                 <Container>
-                    <BootstrapNavbar.Brand href="/">CertVet</BootstrapNavbar.Brand>
+                    
+                    {
+                        userData ?
+                            <Link className="navbar-brand" to="/painel">CertVet</Link> :
+                            <Link className="navbar-brand" to="/">CertVet</Link>
+                    }
+
                     <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav" />
 
                     <BootstrapNavbar.Collapse>
