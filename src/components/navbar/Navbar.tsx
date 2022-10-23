@@ -34,6 +34,20 @@ class Navbar extends React.Component<Props, State>{
                 <Container>
                     <BootstrapNavbar.Brand href="/">CertVet</BootstrapNavbar.Brand>
                     <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav" />
+
+                    <BootstrapNavbar.Collapse>
+
+                        {
+                            userData ?
+                                (
+                                    <Nav>
+                                        <Link to="/painel/funcionarios" className="nav-link">Funcionarios</Link>
+                                    </Nav>
+                                ) : <></>
+                        }
+
+                    </BootstrapNavbar.Collapse>
+
                     <BootstrapNavbar.Collapse className="justify-content-end">
 
                         {

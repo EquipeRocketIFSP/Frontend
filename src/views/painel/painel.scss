@@ -1,0 +1,19 @@
+#painel {
+    h4 {
+        margin: 20px 0;
+    }
+
+    .acesso-rapido {
+        padding: 0;
+
+        .acesso-rapido-item {
+            padding: 10px;
+            text-decoration: none;
+            margin-bottom: 10px;
+
+            i {
+                font-size: 60px;
+            }
+        }
+    }
+}
