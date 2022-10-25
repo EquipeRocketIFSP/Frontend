@@ -15,10 +15,17 @@ class Painel extends React.Component {
                         <h4>Acesso Rápido</h4>
 
                         <Row className="acesso-rapido">
-                            <div className="col-lg-2 col-md-3 col-sm-3 col-6">
-                                <Link to="/painel/funcionarios" className="shadow round d-flex flex-column align-items-center acesso-rapido-item">
-                                    <i className="fa-solid fa-users"></i>
-                                    Funcionarios
+                            <div className="col-lg-3 col-md-3 col-sm-3 col-6">
+                                <Link to="/painel/funcionarios/adicionar" className="shadow round d-flex flex-column align-items-center acesso-rapido-item">
+                                    <i className="fa-solid fa-user-plus"></i>
+                                    Adicionar Funcionarios
+                                </Link>
+                            </div>
+
+                            <div className="col-lg-3 col-md-3 col-sm-3 col-6">
+                                <Link to="/painel/agenda/adicionar" className="shadow round d-flex flex-column align-items-center acesso-rapido-item">
+                                    <i className="fa-solid fa-calendar-plus"></i>
+                                    Criar Agendamento
                                 </Link>
                             </div>
                         </Row>
