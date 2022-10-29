@@ -148,22 +148,6 @@ class FormTutor extends React.Component<any, State> {
                             </Row>
                         </fieldset>
 
-                        <fieldset>
-                            <legend>Acesso</legend>
-
-                            <Row>
-                                <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="email">E-mail*</Form.Label>
-                                    <Form.Control type="email" name="email" id="email" required />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="senha">Senha*</Form.Label>
-                                    <Form.Control type="password" name="senha" id="senha" required />
-                                </Form.Group>
-                            </Row>
-                        </fieldset>
-
                         <div className="d-flex justify-content-between">
                             <Link className="btn btn-outline-secondary" to="/painel/tutores">Voltar</Link>
                             <Button variant="success" type="submit">Cadastrar</Button>

@@ -52,7 +52,7 @@ class FormSchedule extends React.Component {
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="data-consulta">Data da consulta*</Form.Label>
-                                    <Form.Control type="date" name="data-consulta" id="data-consulta" required />
+                                    <Form.Control type="datetime-local" name="data-consulta" id="data-consulta" required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">

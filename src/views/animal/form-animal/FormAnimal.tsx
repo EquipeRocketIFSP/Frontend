@@ -80,6 +80,15 @@ class FormAnimal extends React.Component {
                                     <Form.Control type="text" name="pelagem" id="pelagem" required />
                                 </Form.Group>
                             </Row>
+
+                            <Row>
+                                <Form.Group className="mb-3 col-lg-12">
+                                    <Form.Label htmlFor="tutor">Tutor*</Form.Label>
+                                    <Form.Select name="tutor" id="tutor" required>
+                                        <option value="">Selecione</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </Row>
                         </fieldset>
 
                         <fieldset>
@@ -87,13 +96,13 @@ class FormAnimal extends React.Component {
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="celular">Pai</Form.Label>
-                                    <Form.Control type="text" name="celular" id="celular" readOnly />
+                                    <Form.Label htmlFor="pai">Pai</Form.Label>
+                                    <Form.Control type="text" name="pai" id="pai" readOnly />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="telefone">Mãe</Form.Label>
-                                    <Form.Control type="text" name="telefone" id="telefone" readOnly />
+                                    <Form.Label htmlFor="mae">Mãe</Form.Label>
+                                    <Form.Control type="text" name="mae" id="mae" readOnly />
                                 </Form.Group>
                             </Row>
                         </fieldset>
