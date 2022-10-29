@@ -2,6 +2,7 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import { Navigate } from "react-router-dom";
+import Axios from "axios";
 
 import Layouts from "../../layouts/Layouts";
 import Contracts from "../../contracts/Contracts";
@@ -9,6 +10,7 @@ import Contracts from "../../contracts/Contracts";
 import FormClinic from "./components/FormClinic";
 import FormOwner from "./components/FormOwner";
 import FormTechnician from "./components/FormTechnician";
+import env from "../../env";
 
 import "./signin.scss";
 
@@ -55,6 +57,8 @@ class SignIn extends React.Component<any, State> {
                                 ) :
                                 (
                                     <>
+                                        {formStage == "error" ? <Alert variant="danger">Não foi possivel concluir o cadastro. Tente novamente mais tarde.</Alert> : <></>}
+
                                         <FormClinic setRegistrationStage={this.setRegistrationStage} setFormData={this.setClinicFormData} fadeIn={registrationStage == "clinic"} />
                                         <FormOwner setRegistrationStage={this.setRegistrationStage} setFormData={this.setOwnerFormData} fadeIn={registrationStage == "owner"} />
                                         <FormTechnician setRegistrationStage={this.setRegistrationStage} setFormData={this.setTechnicianFormData} fadeIn={registrationStage == "technician"} />
@@ -97,9 +101,17 @@ class SignIn extends React.Component<any, State> {
             data[key] = value.toString();
         });
 
-        this.setState({ formStage: "sent" });
+        try {
+            await Axios.post(`${env.API}/cadastro-clinica`, data);
 
-        setTimeout(() => this.setState({ redirect: "/" }), 3000);
+            this.setState({ formStage: "sent" });
+            setTimeout(() => this.setState({ redirect: "/" }), 3000);
+        }
+
+        catch (error) {
+            this.setState({ formStage: "error", registrationStage: "technician" });
+            window.scrollTo(0, 0);
+        }
     }
 }
 
