@@ -44,7 +44,7 @@ class FormTutor extends React.Component<any, State> {
         const { ufs, address } = this.state;
 
         return (
-            <Layouts.RestrictedFormLayout id="funcionario-tutor" style={{ marginBottom: "20px" }} layoutFormContext={this.layoutFormContext} >
+            <Layouts.RestrictedFormLayout id="tutor-formulario" style={{ marginBottom: "20px" }} layoutFormContext={this.layoutFormContext} >
                 <Container>
 
                     <Components.Breadcrumbs>
@@ -67,8 +67,8 @@ class FormTutor extends React.Component<any, State> {
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-12">
-                                    <Form.Label htmlFor="nome-fantasia">Nome*</Form.Label>
-                                    <Form.Control type="text" name="nome-fantasia" id="nome-fantasia" required />
+                                    <Form.Label htmlFor="nome">Nome*</Form.Label>
+                                    <Form.Control type="text" name="nome" id="nome" required />
                                 </Form.Group>
                             </Row>
 

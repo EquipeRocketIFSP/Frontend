@@ -19,6 +19,9 @@ class Routes extends React.Component {
 
                     <Route path="/painel/tutores" element={<Views.Tutor.Page />} />
                     <Route path="/painel/tutores/adicionar" element={<Views.Tutor.Form />} />
+
+                    <Route path="/painel/animais" element={<Views.Animal.Page />} />
+                    <Route path="/painel/animais/adicionar" element={<Views.Animal.Form />} />
                 </RouterRoutes>
             </BrowserRouter>
         );
