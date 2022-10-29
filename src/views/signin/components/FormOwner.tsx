@@ -124,10 +124,10 @@ class FormOwner extends React.Component<Props, State> {
 
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="dono-estado">Estado*</Form.Label>
-                                <Form.Select name="dono-estado" id="dono-estado" defaultValue={address.uf} required>
+                                <Form.Select name="dono-estado" id="dono-estado" required>
                                     <option value="">Selecione</option>
 
-                                    {ufs.map((uf) => <option value={uf.sigla} key={uf.id}>{uf.sigla}</option>)}
+                                    {ufs.map((uf) => <option value={uf.sigla} key={uf.id} selected={uf.sigla == address.uf}>{uf.sigla}</option>)}
                                 </Form.Select>
                             </Form.Group>
                         </Row>
