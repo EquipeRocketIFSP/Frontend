@@ -49,6 +49,7 @@ class Navbar extends React.Component<Props, State>{
                                     <Nav>
                                         <Link to="/painel/funcionarios" className="nav-link">Funcionarios</Link>
                                         <Link to="/painel/agenda" className="nav-link">Agenda</Link>
+                                        <Link to="/painel/tutores" className="nav-link">Tutores</Link>
                                     </Nav>
                                 ) : <></>
                         }
