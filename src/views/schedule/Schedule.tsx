@@ -1,18 +1,18 @@
 import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import Components from "../../components/Components";
-import RestrictedLayout from "../RestrictedLayout";
+import Layouts from "../../layouts/Layouts";
 
 class Schedule extends React.Component {
     render(): React.ReactNode {
         return (
-            <RestrictedLayout>
+            <Layouts.RestrictedLayout>
                 <main id="funcionarios">
                     <Container>
                         <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} loadItems={this.loadItems} />
                     </Container>
                 </main>
-            </RestrictedLayout>
+            </Layouts.RestrictedLayout>
         );
     }
 

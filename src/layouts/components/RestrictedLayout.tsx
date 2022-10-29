@@ -1,9 +1,8 @@
 import React from "react";
-
-import Components from "../components/Components";
-import Layout from "./Layout";
-import Storages from "../Storages";
 import { Navigate } from "react-router-dom";
+
+import Layout from "./Layout";
+import Storages from "../../Storages";
 
 class RestrictedLayout extends React.Component<React.PropsWithChildren> {
     render(): React.ReactNode {

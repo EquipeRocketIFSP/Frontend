@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import { Navigate } from "react-router-dom";
 
-import Layout from "../Layout";
+import Layouts from "../../layouts/Layouts";
 import Contracts from "../../contracts/Contracts";
 
 import FormClinic from "./components/FormClinic";
@@ -43,7 +43,7 @@ class SignIn extends React.Component<any, State> {
             return <Navigate to={redirect} />;
 
         return (
-            <Layout>
+            <Layouts.Layout>
                 <Container>
                     <main id="cadastro-inicial">
                         {
@@ -63,7 +63,7 @@ class SignIn extends React.Component<any, State> {
                         }
                     </main>
                 </Container>
-            </Layout>
+            </Layouts.Layout>
         );
     }
 

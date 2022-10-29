@@ -2,14 +2,14 @@ import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import { Link } from "react-router-dom";
-import RestrictedLayout from "../RestrictedLayout";
+import Layouts from "../../layouts/Layouts";
 
 import "./painel.scss";
 
 class Painel extends React.Component {
     render(): React.ReactNode {
         return (
-            <RestrictedLayout>
+            <Layouts.RestrictedLayout>
                 <main id="painel">
                     <Container>
                         <h4>Acesso Rápido</h4>
@@ -31,7 +31,7 @@ class Painel extends React.Component {
                         </Row>
                     </Container>
                 </main>
-            </RestrictedLayout>
+            </Layouts.RestrictedLayout>
         );
     }
 }

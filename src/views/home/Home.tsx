@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 
 import Components from "../../components/Components";
-import Layout from "../Layout";
+import Layouts from "../../layouts/Layouts";
 
 import fullbanner from "./../../fullbanner.jpg";
 
@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 class Home extends React.Component {
     render(): React.ReactNode {
         return (
-            <Layout>
+            <Layouts.Layout>
                 <main id="home">
                     <Components.Fullbanner src={fullbanner} alt="Fullbanner">
                         <h1 style={{ textAlign: "center" }}>Gerencie sua clínica veterinária</h1>
@@ -62,7 +62,7 @@ class Home extends React.Component {
 
                     </Container>
                 </main>
-            </Layout>
+            </Layouts.Layout>
         );
     }
 }
