@@ -73,6 +73,7 @@ class SignIn extends React.Component<any, State> {
 
     componentDidUpdate(): void {
         this.sendForm();
+        window.scrollTo({ top: 0, left: 0});
     }
 
     private setRegistrationStage = (registrationStage: RegistrationStage): void => this.setState({ registrationStage });
