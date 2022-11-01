@@ -177,11 +177,11 @@ class FormTutor extends React.Component<any, State> {
     private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        this.layoutFormContext.state({ formState: "sent", redirect: null });
+/*         this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
 
         setInterval(() => {
-            this.layoutFormContext.state({ formState: "idle", redirect: "/painel/tutores" });
-        }, 3000);
+            this.layoutFormContext.state({ formState: "idle", redirect: "/painel/tutores", errorMessage: null });
+        }, 3000); */
 
         /* const {setFormData, setRegistrationStage} = this.props;
 

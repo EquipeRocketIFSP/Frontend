@@ -121,11 +121,11 @@ class FormAnimal extends React.Component {
     private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        this.layoutFormContext.state({ formState: "sent", redirect: null });
+        /* this.layoutFormContext.state({ formState: "sent", redirect: null });
 
         setInterval(() => {
             this.layoutFormContext.state({ formState: "idle", redirect: "/painel/animais" });
-        }, 3000);
+        }, 3000); */
 
         /* const {setFormData, setRegistrationStage} = this.props;
 

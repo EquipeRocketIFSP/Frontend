@@ -2,14 +2,16 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/esm/Alert";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Axios, { AxiosError } from "axios";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
 import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
+import env from "../../../env";
+import Storages from "../../../Storages";
 
 interface State {
     address: Contracts.ViaCEPAddress,
@@ -130,10 +132,10 @@ class FormEmployees extends React.Component<any, State>{
 
                                 <Form.Group className="mb-3 col-lg-2">
                                     <Form.Label htmlFor="funcionario-estado">Estado*</Form.Label>
-                                    <Form.Select name="funcionario-estado" id="funcionario-estado" defaultValue={address.uf} required>
+                                    <Form.Select name="funcionario-estado" id="funcionario-estado" required>
                                         <option value="">Selecione</option>
 
-                                        {ufs.map((uf) => <option value={uf.sigla} key={uf.id}>{uf.sigla}</option>)}
+                                        {ufs.map((uf) => <option value={uf.sigla} key={uf.id} selected={address.uf == uf.sigla}>{uf.sigla}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
@@ -199,19 +201,36 @@ class FormEmployees extends React.Component<any, State>{
             this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
     }
 
-    private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    private onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        this.layoutFormContext.state({ formState: "sent", redirect: null });
-        
-        setInterval(() => {
-            this.layoutFormContext.state({ formState: "idle", redirect: "/painel/funcionarios" });
-        }, 3000);
+        let data: Contracts.DynamicObject<string> = {};
 
-        /* const {setFormData, setRegistrationStage} = this.props;
+        new FormData(evt.currentTarget).forEach((value, key) => data[key] = value.toString());
 
-                    setFormData(new FormData(evt.currentTarget));
-                    setRegistrationStage("send"); */
+        try {
+            await Axios.post(`${env.API}/cadastro-funcionario`, data, {
+                headers: { "Authorization": `Bearer ${Storages.userStorage.get()?.token}` }
+            });
+
+            this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
+
+            setInterval(() => {
+                this.layoutFormContext.state({ formState: "idle", redirect: "/painel/funcionarios", errorMessage: null });
+            }, 3000);
+        } catch (error) {
+            const status = (error as AxiosError).response?.status;
+
+            switch (status) {
+                case 401:
+                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Usuário não autenticado." });
+                    break;
+
+                default:
+                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Não foi possivel cadastrar esse funcionário. Por favor tente mais tarde." });
+                    break;
+            }
+        }
     }
 }
 

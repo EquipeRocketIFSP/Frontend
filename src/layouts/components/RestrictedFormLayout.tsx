@@ -6,7 +6,7 @@ import Alert from "react-bootstrap/esm/Alert";
 import RestrictedLayout from "./RestrictedLayout";
 import Contracts from "../../contracts/Contracts";
 
-type FormState = "idle" | "sent";
+type FormState = "idle" | "error" | "sent";
 
 interface Props extends React.PropsWithChildren {
     style?: React.CSSProperties,
@@ -16,7 +16,8 @@ interface Props extends React.PropsWithChildren {
 }
 
 interface PublicState extends Contracts.Redirect {
-    formState: FormState
+    formState: FormState,
+    errorMessage: string | null
 }
 
 interface State extends PublicState {
@@ -33,13 +34,14 @@ class RestrictedFormLayout extends React.Component<Props, State> {
 
         this.state = {
             formState: "idle",
-            redirect: null
+            redirect: null,
+            errorMessage: null
         };
     }
 
     render(): React.ReactNode {
         const { id, className, style, children } = this.props;
-        const { redirect, formState } = this.state;
+        const { redirect, formState, errorMessage } = this.state;
 
         if (redirect)
             return <Navigate to={redirect} />;
@@ -59,6 +61,12 @@ class RestrictedFormLayout extends React.Component<Props, State> {
         return (
             <RestrictedLayout>
                 <main id={id} className={className} style={style}>
+
+                    {
+                        formState == "error" && errorMessage ?
+                            <Container><Alert variant="danger">{errorMessage}</Alert></Container> : <></>
+                    }
+
                     {children}
                 </main>
             </RestrictedLayout>
