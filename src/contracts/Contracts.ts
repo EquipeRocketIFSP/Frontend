@@ -48,6 +48,20 @@ namespace Contracts {
         "funcionario-email": string,
         "funcionario-senha": string,
     }
+
+    export interface Tutor {
+        nome: string,
+        cpf: string,
+        rg: string,
+        cep: string,
+        logradouro: string,
+        numero: string,
+        bairro: string,
+        cidade: string,
+        estado: string,
+        celular: string,
+        telefone: string
+    }
 }
 
 export default Contracts;
