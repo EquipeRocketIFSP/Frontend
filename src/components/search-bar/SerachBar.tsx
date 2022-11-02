@@ -5,7 +5,6 @@ import "./search-bar.scss";
 
 interface Props {
     setSearch: (search: string | null) => void,
-    loadItems: (page: number) => Promise<void>,
     toggleTrash: () => void
 }
 
@@ -74,20 +73,20 @@ class SearchBar extends Component<Props, State>{
     private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        const { search } = this.state;
+        /* const { search } = this.state;
         const { setSearch, loadItems } = this.props;
 
         setSearch(search);
-        setTimeout(() => loadItems(1), 16);
+        setTimeout(() => loadItems(1), 16); */
     }
 
     private onClickBtnClearSearch = () => {
-        const { setSearch, loadItems } = this.props;
+       /*  const { setSearch, loadItems } = this.props;
 
         this.setState({ search: "" });
 
         setSearch(null);
-        setTimeout(() => loadItems(1), 16);
+        setTimeout(() => loadItems(1), 16); */
     }
 
     private onClickBtnTrash = () => {

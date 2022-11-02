@@ -9,7 +9,7 @@ class Schedule extends React.Component {
             <Layouts.RestrictedLayout>
                 <main id="funcionarios">
                     <Container>
-                        <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} loadItems={this.loadItems} />
+                        <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} />
                     </Container>
                 </main>
             </Layouts.RestrictedLayout>
