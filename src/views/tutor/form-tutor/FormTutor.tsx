@@ -3,12 +3,15 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import Axios, { AxiosError } from "axios";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
 import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
+import Storages from "../../../Storages";
+import env from "../../../env";
 
 interface State {
     address: Contracts.ViaCEPAddress,
@@ -174,19 +177,36 @@ class FormTutor extends React.Component<any, State> {
             this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
     }
 
-    private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    private onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-/*         this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
+        let data: Contracts.DynamicObject<string> = {};
 
-        setInterval(() => {
-            this.layoutFormContext.state({ formState: "idle", redirect: "/painel/tutores", errorMessage: null });
-        }, 3000); */
+        new FormData(evt.currentTarget).forEach((value, key) => data[key] = value.toString());
 
-        /* const {setFormData, setRegistrationStage} = this.props;
+        try {
+            await Axios.post(`${env.API}/cadastro-tutor`, data, {
+                headers: { "Authorization": `Bearer ${Storages.userStorage.get()?.token}` }
+            });
 
-                    setFormData(new FormData(evt.currentTarget));
-                    setRegistrationStage("send"); */
+            this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
+
+            setInterval(() => {
+                this.layoutFormContext.state({ formState: "idle", redirect: "/painel/tutores", errorMessage: null });
+            }, 3000);
+        } catch (error) {
+            const status = (error as AxiosError).response?.status;
+
+            switch (status) {
+                case 401:
+                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Usuário não autenticado." });
+                    break;
+
+                default:
+                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Não foi possivel cadastrar esse tutor. Por favor tente mais tarde." });
+                    break;
+            }
+        }
     }
 }
 
