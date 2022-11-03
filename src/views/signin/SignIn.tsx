@@ -9,7 +9,7 @@ import Contracts from "../../contracts/Contracts";
 
 import FormClinic from "./components/FormClinic";
 import FormOwner from "./components/FormOwner";
-import FormTechnician from "./components/FormTechnician";
+import FormTechnician, { DefaultFormDataTechnician } from "./components/FormTechnician";
 import env from "../../env";
 
 import "./signin.scss";
@@ -22,6 +22,7 @@ interface State extends Contracts.Redirect {
     clinicForm: FormData,
     ownerForm: FormData,
     technicianForm: FormData,
+    defaultTechnicianFormData: DefaultFormDataTechnician | null
 }
 
 class SignIn extends React.Component<any, State> {
@@ -35,11 +36,12 @@ class SignIn extends React.Component<any, State> {
             clinicForm: new FormData(),
             ownerForm: new FormData(),
             technicianForm: new FormData(),
+            defaultTechnicianFormData: null
         };
     }
 
     render(): React.ReactNode {
-        const { registrationStage, formStage, redirect } = this.state;
+        const { registrationStage, formStage, redirect, defaultTechnicianFormData } = this.state;
 
         if (redirect)
             return <Navigate to={redirect} />;
@@ -59,9 +61,24 @@ class SignIn extends React.Component<any, State> {
                                     <>
                                         {formStage == "error" ? <Alert variant="danger">Não foi possivel concluir o cadastro. Tente novamente mais tarde.</Alert> : <></>}
 
-                                        <FormClinic setRegistrationStage={this.setRegistrationStage} setFormData={this.setClinicFormData} fadeIn={registrationStage == "clinic"} />
-                                        <FormOwner setRegistrationStage={this.setRegistrationStage} setFormData={this.setOwnerFormData} fadeIn={registrationStage == "owner"} />
-                                        <FormTechnician setRegistrationStage={this.setRegistrationStage} setFormData={this.setTechnicianFormData} fadeIn={registrationStage == "technician"} />
+                                        <FormClinic
+                                            setRegistrationStage={this.setRegistrationStage}
+                                            setFormData={this.setClinicFormData}
+                                            fadeIn={registrationStage == "clinic"}
+                                        />
+
+                                        <FormOwner
+                                            setRegistrationStage={this.setRegistrationStage}
+                                            setFormData={this.setOwnerFormData}
+                                            fadeIn={registrationStage == "owner"}
+                                        />
+
+                                        <FormTechnician
+                                            setRegistrationStage={this.setRegistrationStage}
+                                            setFormData={this.setTechnicianFormData}
+                                            fadeIn={registrationStage == "technician"}
+                                            defaultTechnicianFormData={defaultTechnicianFormData}
+                                        />
                                     </>
                                 )
                         }
@@ -73,13 +90,13 @@ class SignIn extends React.Component<any, State> {
 
     componentDidUpdate(): void {
         this.sendForm();
-        window.scrollTo({ top: 0, left: 0});
+        window.scrollTo({ top: 0, left: 0 });
     }
 
     private setRegistrationStage = (registrationStage: RegistrationStage): void => this.setState({ registrationStage });
 
     private setClinicFormData = (formData: FormData): void => this.setState({ clinicForm: formData });
-    private setOwnerFormData = (formData: FormData): void => this.setState({ ownerForm: formData });
+    private setOwnerFormData = (formData: FormData, defaultTechnicianFormData: DefaultFormDataTechnician | null): void => this.setState({ ownerForm: formData, defaultTechnicianFormData });
     private setTechnicianFormData = (formData: FormData): void => this.setState({ technicianForm: formData });
 
     private sendForm = async (): Promise<void> => {

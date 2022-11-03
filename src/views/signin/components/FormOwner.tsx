@@ -9,10 +9,11 @@ import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
 import { RegistrationStage } from "../SignIn";
 import Container from "react-bootstrap/Container";
+import { DefaultFormDataTechnician } from "./FormTechnician";
 
 interface Props {
     fadeIn: boolean,
-    setFormData: (formData: FormData) => void,
+    setFormData: (formData: FormData, defaultTechnicianFormData: DefaultFormDataTechnician | null) => void,
     setRegistrationStage: (registrationStage: RegistrationStage) => void
 }
 
@@ -167,6 +168,10 @@ class FormOwner extends React.Component<Props, State> {
                         </Row>
                     </fieldset>
 
+                    <Row>
+                        <Form.Check type="checkbox" label="Sou responsável técnico" name="is-responsavel-tecnico" />
+                    </Row>
+
                     <div className="d-flex justify-content-between">
                         <Button variant="outline-secondary" onClick={() => this.props.setRegistrationStage("clinic")}>Voltar</Button>
                         <Button type="submit">Continuar</Button>
@@ -196,8 +201,26 @@ class FormOwner extends React.Component<Props, State> {
         evt.preventDefault();
 
         const { setFormData, setRegistrationStage } = this.props;
+        const formData = new FormData(evt.currentTarget);
+        let defaultTechnicianFormData: DefaultFormDataTechnician | null = null;
 
-        setFormData(new FormData(evt.currentTarget));
+        if (formData.get("is-responsavel-tecnico")) {
+            defaultTechnicianFormData = {
+                nome: formData.get("dono-nome-fantasia")?.toString() ?? "",
+                cpf: formData.get("dono-cpf")?.toString() ?? "",
+                rg: formData.get("dono-rg")?.toString() ?? "",
+                cep: formData.get("dono-cep")?.toString() ?? "",
+                logradouro: formData.get("dono-logradouro")?.toString() ?? "",
+                numero: formData.get("dono-numero")?.toString() ?? "",
+                bairro: formData.get("dono-bairro")?.toString() ?? "",
+                cidade: formData.get("dono-cidade")?.toString() ?? "",
+                estado: formData.get("dono-estado")?.toString() ?? "",
+                celular: formData.get("dono-celular")?.toString() ?? "",
+                telefone: formData.get("dono-telefone")?.toString() ?? ""
+            };
+        }
+
+        setFormData(formData, defaultTechnicianFormData);
         setRegistrationStage("technician");
     }
 }
