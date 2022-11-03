@@ -3,23 +3,36 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import Axios, { AxiosError } from "axios";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
 import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
+import Storages from "../../../Storages";
+import env from "../../../env";
 
-class FormAnimal extends React.Component {
+interface State {
+    tutors: Contracts.Tutor[]
+}
+
+class FormAnimal extends React.Component<any, State> {
     private layoutFormContext: Layouts.LayoutFormContext;
 
     constructor(props: any) {
         super(props);
 
+        this.state = {
+            tutors: []
+        };
+
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
     }
 
     render(): React.ReactNode {
+        const { tutors } = this.state;
+
         return (
             <Layouts.RestrictedFormLayout id="animal-formulario" style={{ marginBottom: "20px" }} layoutFormContext={this.layoutFormContext} >
                 <Container>
@@ -86,6 +99,8 @@ class FormAnimal extends React.Component {
                                     <Form.Label htmlFor="tutor">Tutor*</Form.Label>
                                     <Form.Select name="tutor" id="tutor" required>
                                         <option value="">Selecione</option>
+
+                                        {tutors.map(({ nome }) => <option value="1">{nome}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
@@ -118,19 +133,50 @@ class FormAnimal extends React.Component {
         );
     }
 
-    private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    componentDidMount(): void {
+        this.loadTutors();
+    }
+
+    private loadTutors = async (): Promise<void> => {
+        try {
+            const { data: tutors } = await Axios.get(`${env.API}/cadastro-tutor`, { headers: { "Authorization": `Bearer ${Storages.userStorage.get()?.token}` } });
+
+            this.setState({ tutors });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    private onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        /* this.layoutFormContext.state({ formState: "sent", redirect: null });
+        let data: Contracts.DynamicObject<string> = {};
 
-        setInterval(() => {
-            this.layoutFormContext.state({ formState: "idle", redirect: "/painel/animais" });
-        }, 3000); */
+        new FormData(evt.currentTarget).forEach((value, key) => data[key] = value.toString());
 
-        /* const {setFormData, setRegistrationStage} = this.props;
+        try {
+            await Axios.post(`${env.API}/cadastro-animal`, data, {
+                headers: { "Authorization": `Bearer ${Storages.userStorage.get()?.token}` }
+            });
 
-                    setFormData(new FormData(evt.currentTarget));
-                    setRegistrationStage("send"); */
+            this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
+
+            setInterval(() => {
+                this.layoutFormContext.state({ formState: "idle", redirect: "/painel/animais", errorMessage: null });
+            }, 3000);
+        } catch (error) {
+            const status = (error as AxiosError).response?.status;
+
+            switch (status) {
+                case 401:
+                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Usuário não autenticado." });
+                    break;
+
+                default:
+                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Não foi possivel cadastrar esse animal. Por favor tente mais tarde." });
+                    break;
+            }
+        }
     }
 }
 
