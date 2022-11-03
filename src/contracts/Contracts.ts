@@ -62,6 +62,18 @@ namespace Contracts {
         celular: string,
         telefone: string
     }
+
+    export interface Animal {
+        nome: string,
+        idade: string,
+        sexo: string,
+        raca: string,
+        especie: string,
+        pelagem: string,
+        tutor: string,
+        pai: string | null,
+        mae: string | null
+    }
 }
 
 export default Contracts;
