@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import Contracts from "../../../contracts/Contracts";
 
-interface Props extends Contracts.Tutor { }
+interface Props extends Contracts.ListingData { }
 
 class ListItemTutor extends React.Component<Props> {
     render(): React.ReactNode {

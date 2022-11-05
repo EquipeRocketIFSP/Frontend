@@ -70,13 +70,13 @@ class FormEmployees extends React.Component<any, State>{
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-10">
-                                    <Form.Label htmlFor="funcionario-nome">Nome*</Form.Label>
-                                    <Form.Control type="text" name="funcionario-nome" id="funcionario-nome" required />
+                                    <Form.Label htmlFor="nome">Nome*</Form.Label>
+                                    <Form.Control type="text" name="nome" id="nome" required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-2">
-                                    <Form.Label htmlFor="funcionario-crmv">CRMV</Form.Label>
-                                    <Form.Control type="text" name="funcionario-crmv" id="funcionario-crmv" />
+                                    <Form.Label htmlFor="crmv">CRMV</Form.Label>
+                                    <Form.Control type="text" name="crmv" id="crmv" />
                                     <Form.Text className="text-muted">
                                         Somente para veterinários.
                                     </Form.Text>
@@ -85,14 +85,14 @@ class FormEmployees extends React.Component<any, State>{
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="funcionario-cpf">CPF*</Form.Label>
-                                    <Form.Control type="tel" name="funcionario-cpf" id="funcionario-cpf"
+                                    <Form.Label htmlFor="cpf">CPF*</Form.Label>
+                                    <Form.Control type="tel" name="cpf" id="cpf"
                                         onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="funcionario-rg">RG*</Form.Label>
-                                    <Form.Control type="tel" name="funcionario-rg" id="funcionario-rg" required />
+                                    <Form.Label htmlFor="rg">RG*</Form.Label>
+                                    <Form.Control type="tel" name="rg" id="rg" required />
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -102,37 +102,37 @@ class FormEmployees extends React.Component<any, State>{
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-2">
-                                    <Form.Label htmlFor="funcionario-cep">CEP*</Form.Label>
-                                    <Form.Control type="tel" name="funcionario-cep" id="funcionario-cep"
+                                    <Form.Label htmlFor="cep">CEP*</Form.Label>
+                                    <Form.Control type="tel" name="cep" id="cep"
                                         onInput={this.onInputCep} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col">
-                                    <Form.Label htmlFor="funcionario-logradouro">Logradouro*</Form.Label>
-                                    <Form.Control type="text" name="funcionario-logradouro" id="funcionario-logradouro" defaultValue={address.logradouro} required />
+                                    <Form.Label htmlFor="logradouro">Logradouro*</Form.Label>
+                                    <Form.Control type="text" name="logradouro" id="logradouro" defaultValue={address.logradouro} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-2">
-                                    <Form.Label htmlFor="funcionario-numero">Número*</Form.Label>
-                                    <Form.Control type="tel" name="funcionario-numero" id="funcionario-numero"
+                                    <Form.Label htmlFor="numero">Número*</Form.Label>
+                                    <Form.Control type="tel" name="numero" id="numero"
                                         onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)} required />
                                 </Form.Group>
                             </Row>
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-5">
-                                    <Form.Label htmlFor="funcionario-bairro">Bairro*</Form.Label>
-                                    <Form.Control type="text" name="funcionario-bairro" id="funcionario-bairro" defaultValue={address.bairro} required />
+                                    <Form.Label htmlFor="bairro">Bairro*</Form.Label>
+                                    <Form.Control type="text" name="bairro" id="bairro" defaultValue={address.bairro} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-5">
-                                    <Form.Label htmlFor="funcionario-cidade">Cidade*</Form.Label>
-                                    <Form.Control type="text" name="funcionario-cidade" id="funcionario-cidade" defaultValue={address.localidade} required />
+                                    <Form.Label htmlFor="cidade">Cidade*</Form.Label>
+                                    <Form.Control type="text" name="cidade" id="cidade" defaultValue={address.localidade} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-2">
-                                    <Form.Label htmlFor="funcionario-estado">Estado*</Form.Label>
-                                    <Form.Select name="funcionario-estado" id="funcionario-estado" required>
+                                    <Form.Label htmlFor="estado">Estado*</Form.Label>
+                                    <Form.Select name="estado" id="estado" required>
                                         <option value="">Selecione</option>
 
                                         {ufs.map((uf) => <option value={uf.sigla} key={uf.id} selected={address.uf == uf.sigla}>{uf.sigla}</option>)}
@@ -146,14 +146,14 @@ class FormEmployees extends React.Component<any, State>{
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="funcionario-celular">Celular*</Form.Label>
-                                    <Form.Control type="tel" name="funcionario-celular" id="funcionario-celular"
+                                    <Form.Label htmlFor="celular">Celular*</Form.Label>
+                                    <Form.Control type="tel" name="celular" id="celular"
                                         onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)} required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="funcionario-telefone">Telefone</Form.Label>
-                                    <Form.Control type="tel" name="funcionario-telefone" id="funcionario-telefone"
+                                    <Form.Label htmlFor="telefone">Telefone</Form.Label>
+                                    <Form.Control type="tel" name="telefone" id="telefone"
                                         onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} />
                                 </Form.Group>
                             </Row>
@@ -164,13 +164,13 @@ class FormEmployees extends React.Component<any, State>{
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="funcionario-email">E-mail*</Form.Label>
-                                    <Form.Control type="email" name="funcionario-email" id="funcionario-email" required />
+                                    <Form.Label htmlFor="email">E-mail*</Form.Label>
+                                    <Form.Control type="email" name="email" id="email" required />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="funcionario-senha">Senha*</Form.Label>
-                                    <Form.Control type="password" name="funcionario-senha" id="funcionario-senha" required />
+                                    <Form.Label htmlFor="senha">Senha*</Form.Label>
+                                    <Form.Control type="password" name="senha" id="senha" required />
                                 </Form.Group>
                             </Row>
                         </fieldset>

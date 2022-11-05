@@ -105,3 +105,4 @@ dist
 
 # pasta que o github codespace gera
 build/
+.idea/
