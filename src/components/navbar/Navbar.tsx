@@ -4,16 +4,17 @@ import BootstrapNavbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 import Storages from "./../../Storages";
-import { Link, Navigate } from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import Contracts from "../../contracts/Contracts";
 
 interface Props {
     showLoginModal: () => void,
 }
 
-interface State extends Contracts.Redirect { }
+interface State extends Contracts.Redirect {
+}
 
-class Navbar extends React.Component<Props, State>{
+class Navbar extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
@@ -23,23 +24,23 @@ class Navbar extends React.Component<Props, State>{
     }
 
     render(): React.ReactNode {
-        const { showLoginModal } = this.props;
+        const {showLoginModal} = this.props;
         const userData = Storages.userStorage.get();
 
         if (this.state.redirect)
-            return <Navigate to={this.state.redirect} />;
+            return <Navigate to={this.state.redirect}/>;
 
         return (
             <BootstrapNavbar collapseOnSelect expand="lg" className="bg-light shadow sticky-top">
                 <Container>
-                    
+
                     {
                         userData ?
                             <Link className="navbar-brand" to="/painel">CertVet</Link> :
                             <Link className="navbar-brand" to="/">CertVet</Link>
                     }
 
-                    <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav"/>
 
                     <BootstrapNavbar.Collapse>
 
@@ -51,6 +52,7 @@ class Navbar extends React.Component<Props, State>{
                                         <Link to="/painel/agenda" className="nav-link">Agenda</Link>
                                         <Link to="/painel/tutores" className="nav-link">Tutores</Link>
                                         <Link to="/painel/animais" className="nav-link">Animais</Link>
+                                        <Link to="/painel/prontuarios" className="nav-link">Prontuários</Link>
                                     </Nav>
                                 ) : <></>
                         }
@@ -82,7 +84,7 @@ class Navbar extends React.Component<Props, State>{
 
     private logout = (): void => {
         Storages.userStorage.truncate();
-        this.setState({ redirect: "/" });
+        this.setState({redirect: "/"});
     }
 }
 

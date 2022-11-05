@@ -14,6 +14,9 @@ import TutorFormView from "./tutor/form-tutor/FormTutor";
 import AnimalView from "./animal/Animal";
 import AnimalFormView from "./animal/form-animal/FormAnimal";
 
+import MedicalRecordVetsView from "./medical-record-vets/MedicalRecordVets";
+import FormMedicalRecordVetsView from "./medical-record-vets/form-medical-record-vets/FormMedicalRecordVets";
+
 namespace Views {
     export const Home = HomeView;
     export const SignIn = SignInView;
@@ -53,6 +56,14 @@ namespace Views {
 
         export type Page = AnimalView;
         export type Form = AnimalFormView;
+    }
+
+    export namespace MedicalRecord {
+        export const Page = MedicalRecordVetsView;
+        export const Form = FormMedicalRecordVetsView;
+
+        export type Page = MedicalRecordVetsView;
+        export type Form = FormMedicalRecordVetsView;
     }
 }
 
