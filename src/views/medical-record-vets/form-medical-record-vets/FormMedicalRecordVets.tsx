@@ -10,8 +10,6 @@ import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
 import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
-import env from "../../../env";
-import Storages from "../../../Storages";
 
 class FormMedicalRecordVets extends React.Component<any> {
     private readonly layoutFormContext: Layouts.LayoutFormContext;
@@ -45,7 +43,7 @@ class FormMedicalRecordVets extends React.Component<any> {
                     <Form onSubmit={this.onSubmit}>
                         <fieldset>
                             <Row>
-                                <Form.Group className="mb-3 col-lg-6">
+                                <Form.Group className="mb-3 col-lg-4">
                                     <Form.Label htmlFor="veterinario">Veterinário*</Form.Label>
 
                                     <Form.Select name="veterinario" id="veterinario" aria-readonly={true} required>
@@ -54,10 +52,19 @@ class FormMedicalRecordVets extends React.Component<any> {
                                     </Form.Select>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3 col-lg-6">
+                                <Form.Group className="mb-3 col-lg-4">
                                     <Form.Label htmlFor="animal">Animal*</Form.Label>
 
                                     <Form.Select name="animal" id="animal" required>
+                                        <option value="">Selecione</option>
+
+                                    </Form.Select>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3 col-lg-4">
+                                    <Form.Label htmlFor="tutor">Tutor*</Form.Label>
+
+                                    <Form.Select name="tutor" id="tutor" required>
                                         <option value="">Selecione</option>
 
                                     </Form.Select>
@@ -68,8 +75,8 @@ class FormMedicalRecordVets extends React.Component<any> {
                         <fieldset>
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="medicamento">Medicamento</Form.Label>
-                                    <Form.Control type="text" name="medicamento" id="medicamento"/>
+                                    <Form.Label htmlFor="nomeMedicamento">Medicamento</Form.Label>
+                                    <Form.Control type="text" name="nomeMedicamento" id="nomeMedicamento"/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-3">
@@ -79,8 +86,8 @@ class FormMedicalRecordVets extends React.Component<any> {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-3">
-                                    <Form.Label htmlFor="unidade">Unidade</Form.Label>
-                                    <Form.Control type="text" name="unidade" id="unidade"/>
+                                    <Form.Label htmlFor="medida">Unidade</Form.Label>
+                                    <Form.Control type="text" name="medida" id="medida"/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -89,12 +96,32 @@ class FormMedicalRecordVets extends React.Component<any> {
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="tipo-cirugia">Tipo de cirurgia</Form.Label>
-                                    <Form.Control type="text" name="tipo-cirugia" />
+                                    <Form.Select name="tipo-cirugia" id="tipo-cirurgia">
+                                        <option value="">Selecione</option>
+                                        <option value="CASATRACAO">Castração</option>
+                                        <option value="ORTOPEDICA">Ortopedica</option>
+                                        <option value="OFTALMICA">Oftalmica</option>
+                                        <option value="TECIDOS_MOLES">Tecidos Moles</option>
+                                        <option value="ODONTOLOGICA">Odontologica</option>
+                                    </Form.Select>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="categoria-paciente">Categoria de paciente</Form.Label>
-                                    <Form.Control type="text" name="categoria-paciente" />
+                                    <Form.Label htmlFor="asa">Asa</Form.Label>
+                                    <Form.Select name="asa" id="asa">
+                                        <option value="">Selecione</option>
+                                        <option value="ASA1">Asa 1</option>
+                                        <option value="ASA2">Asa 2</option>
+                                        <option value="ASA3">Asa 3</option>
+                                        <option value="ASA4">Asa 4</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </Row>
+
+                            <Row>
+                                <Form.Group className="mb-3 col-lg-12">
+                                    <Form.Label htmlFor="asa">Categoria do Paciente</Form.Label>
+                                    <Form.Control type="text" name="categoria-paciente"/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -102,8 +129,8 @@ class FormMedicalRecordVets extends React.Component<any> {
                         <fieldset>
                             <Row>
                                 <Form.Group className="mb-3 col-lg-12">
-                                    <Form.Label htmlFor="exame">Exame</Form.Label>
-                                    <Form.Control as="textarea" name="exame" />
+                                    <Form.Label htmlFor="diagnostico">Diagnostico</Form.Label>
+                                    <Form.Control as="textarea" name="diagnostico"/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -111,8 +138,49 @@ class FormMedicalRecordVets extends React.Component<any> {
                         <fieldset>
                             <Row>
                                 <Form.Group className="mb-3 col-lg-12">
-                                    <Form.Label htmlFor="procedimentos">Procedimentos</Form.Label>
-                                    <Form.Control as="textarea" name="procedimentos" />
+                                    <Form.Label htmlFor="observacoes">Observações</Form.Label>
+                                    <Form.Control as="textarea" name="observacoes"/>
+                                </Form.Group>
+                            </Row>
+                        </fieldset>
+
+                        <fieldset>
+                            <Row>
+                                <Form.Group className="mb-3 col-lg-12">
+                                    <Form.Label htmlFor="exames">Exames</Form.Label>
+                                    <Form.Control as="textarea" name="exames"/>
+                                </Form.Group>
+                            </Row>
+                        </fieldset>
+
+                        <fieldset>
+                            <Row>
+                                <Form.Group className="mb-3 col-lg-6">
+                                    <Form.Label htmlFor="tipoProcedimento">Tipo de procedimento</Form.Label>
+
+                                    <Form.Select name="tipoProcedimento" id="tipoProcedimento">
+                                        <option value="">Selecione</option>
+                                        <option value="IMUNIZACAO">Imunização</option>
+                                        <option value="EXAME">Exame</option>
+                                        <option value="MEDICACAO">Medicação</option>
+                                    </Form.Select>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3 col-lg-6">
+                                    <Form.Label htmlFor="tipo">Tipo</Form.Label>
+
+                                    <Form.Select name="tipo" id="tipo">
+                                        <option value="">Selecione</option>
+                                        <option value="PRESCRITIVO">Prescritivo</option>
+                                        <option value="CONCLUSIVO">Conclusivo</option>
+                                    </Form.Select>
+                                </Form.Group>
+                            </Row>
+
+                            <Row>
+                                <Form.Group className="mb-3 col-lg-12">
+                                    <Form.Label htmlFor="descricao">Descrição</Form.Label>
+                                    <Form.Control as="textarea" name="descricao"/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
