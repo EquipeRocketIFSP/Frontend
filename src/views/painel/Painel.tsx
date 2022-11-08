@@ -28,6 +28,20 @@ class Painel extends React.Component {
                                     Criar Agendamento
                                 </Link>
                             </div>
+
+                            <div className="col-lg-3 col-md-3 col-sm-3 col-6">
+                                <Link to="/painel/animais/adicionar" className="shadow round d-flex flex-column align-items-center acesso-rapido-item">
+                                    <i className="fa-solid fa-dog"></i>
+                                    Adicionar Animal
+                                </Link>
+                            </div>
+
+                            <div className="col-lg-3 col-md-3 col-sm-3 col-6">
+                                <Link to="/painel/prontuarios/adicionar" className="shadow round d-flex flex-column align-items-center acesso-rapido-item">
+                                    <i className="fa-regular fa-clipboard"></i>
+                                    Criar Prontuário
+                                </Link>
+                            </div>
                         </Row>
                     </Container>
                 </main>
