@@ -11,7 +11,7 @@ import Helpers from "../../../helpers/Helpers";
 import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
 
-class FormMedicalRecordVets extends React.Component<any> {
+class FormProntuario extends React.Component<any> {
     private readonly layoutFormContext: Layouts.LayoutFormContext;
 
     constructor(props: any) {
@@ -254,4 +254,4 @@ class FormMedicalRecordVets extends React.Component<any> {
     }
 }
 
-export default FormMedicalRecordVets;
+export default FormProntuario;

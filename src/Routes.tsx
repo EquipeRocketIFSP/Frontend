@@ -23,8 +23,8 @@ class Routes extends React.Component {
                     <Route path="/painel/animais" element={<Views.Animal.Page/>}/>
                     <Route path="/painel/animais/adicionar" element={<Views.Animal.Form/>}/>
 
-                    <Route path="/painel/prontuarios" element={<Views.MedicalRecord.Page/>}/>
-                    <Route path="/painel/prontuarios/adicionar" element={<Views.MedicalRecord.Form/>}/>
+                    <Route path="/painel/prontuarios" element={<Views.Prontuario.Page/>}/>
+                    <Route path="/painel/prontuarios/adicionar" element={<Views.Prontuario.Form/>}/>
                 </RouterRoutes>
             </BrowserRouter>
         );

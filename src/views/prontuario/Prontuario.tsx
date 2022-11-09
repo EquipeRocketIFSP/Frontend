@@ -5,7 +5,7 @@ import Components from "../../components/Components";
 import env from "../../env";
 import ListItemEmployee from "../employees/components/ListItemEmployee";
 
-class MedicalRecordVets extends React.Component<any, any> {
+class Prontuario extends React.Component<any, any> {
     render(): React.ReactNode {
         return (
             <Layouts.RestrictedLayout>
@@ -21,4 +21,4 @@ class MedicalRecordVets extends React.Component<any, any> {
     }
 }
 
-export default MedicalRecordVets;
+export default Prontuario;

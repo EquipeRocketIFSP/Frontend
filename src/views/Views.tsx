@@ -14,8 +14,8 @@ import TutorFormView from "./tutor/form-tutor/FormTutor";
 import AnimalView from "./animal/Animal";
 import AnimalFormView from "./animal/form-animal/FormAnimal";
 
-import MedicalRecordVetsView from "./medical-record-vets/MedicalRecordVets";
-import FormMedicalRecordVetsView from "./medical-record-vets/form-medical-record-vets/FormMedicalRecordVets";
+import ProntuarioView from "./prontuario/Prontuario";
+import FormProntuarioView from "./prontuario/form-prontuario/FormProntuario";
 
 namespace Views {
     export const Home = HomeView;
@@ -58,12 +58,12 @@ namespace Views {
         export type Form = AnimalFormView;
     }
 
-    export namespace MedicalRecord {
-        export const Page = MedicalRecordVetsView;
-        export const Form = FormMedicalRecordVetsView;
+    export namespace Prontuario {
+        export const Page = ProntuarioView;
+        export const Form = FormProntuarioView;
 
-        export type Page = MedicalRecordVetsView;
-        export type Form = FormMedicalRecordVetsView;
+        export type Page = ProntuarioView;
+        export type Form = FormProntuarioView;
     }
 }
 
