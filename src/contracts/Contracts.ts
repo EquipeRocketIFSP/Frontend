@@ -5,7 +5,8 @@ namespace Contracts {
 
     export interface UserData {
         token: string,
-        bearer: string
+        nome: string | null,
+        crmv: string | null
     }
 
     export interface Redirect {
@@ -72,6 +73,10 @@ namespace Contracts {
     export interface ListingData {
         id: number,
         nome: string
+    }
+
+    export interface ListingMedicalRecordData extends ListingData {
+        data: string,
     }
 }
 
