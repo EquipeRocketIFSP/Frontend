@@ -18,7 +18,7 @@ interface State {
     ufs: Contracts.IBGEUF[]
 }
 
-class FormEmployees extends React.Component<any, State>{
+class FormFuncionario extends React.Component<any, State>{
     private layoutFormContext: Layouts.LayoutFormContext;
 
     constructor(props: any) {
@@ -216,7 +216,7 @@ class FormEmployees extends React.Component<any, State>{
             this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
 
             setInterval(() => {
-                this.layoutFormContext.state({ formState: "idle", redirect: "/painel/funcionarios", errorMessage: null });
+                this.layoutFormContext.state({ formState: "idle", redirect: "/painel/funcionario", errorMessage: null });
             }, 3000);
         } catch (error) {
             const status = (error as AxiosError).response?.status;
@@ -234,4 +234,4 @@ class FormEmployees extends React.Component<any, State>{
     }
 }
 
-export default FormEmployees;
+export default FormFuncionario;

@@ -7,7 +7,7 @@ import env from "../../env";
 import Contracts from "../../contracts/Contracts";
 import ListItemEmployee from "./components/ListItemEmployee";
 
-class Employees extends React.Component {
+class Funcionario extends React.Component {
     render(): React.ReactNode {
         return (
             <Layouts.RestrictedLayout>
@@ -31,4 +31,4 @@ class Employees extends React.Component {
     }
 }
 
-export default Employees;
+export default Funcionario;

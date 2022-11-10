@@ -3,7 +3,7 @@ import Layouts from "../../layouts/Layouts";
 import Container from "react-bootstrap/Container";
 import Components from "../../components/Components";
 import env from "../../env";
-import ListItemEmployee from "../employees/components/ListItemEmployee";
+import ListItemEmployee from "../funcionario/components/ListItemEmployee";
 
 class Prontuario extends React.Component<any, any> {
     render(): React.ReactNode {

@@ -2,8 +2,8 @@ import HomeView from "./home/Home";
 import SignInView from "./signin/SignIn";
 import PainelView from "./painel/Painel";
 
-import EmployeesView from "./employees/Employees";
-import FormEmployeesView from "./employees/form-employees/FormEmployees";
+import FuncionarioView from "./funcionario/Funcionario";
+import FormFuncionarioView from "./funcionario/form-funcionario/FormFuncionario";
 
 import ScheduleView from "./schedule/Schedule";
 import FormScheduleView from "./schedule/form-schedule/FormSchedule";
@@ -26,12 +26,12 @@ namespace Views {
     export type SignIn = SignInView;
     export type Painel = PainelView;
 
-    export namespace Employees {
-        export const Page = EmployeesView;
-        export const Form = FormEmployeesView;
+    export namespace Funcionario {
+        export const Page = FuncionarioView;
+        export const Form = FormFuncionarioView;
 
-        export type Page = EmployeesView;
-        export type Form = FormEmployeesView;
+        export type Page = FuncionarioView;
+        export type Form = FormFuncionarioView;
     }
 
     export namespace Schedule {
