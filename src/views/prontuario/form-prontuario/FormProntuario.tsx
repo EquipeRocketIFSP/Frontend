@@ -10,17 +10,57 @@ import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
 import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
+import env from "../../../env";
+import Storages from "../../../Storages";
 
-class FormProntuario extends React.Component<any> {
+interface State {
+    tutores: Contracts.ListingData[],
+    animais: Contracts.ListingData[],
+    veterinarios: Contracts.ListingData[]
+}
+
+interface PostData {
+    "veterinario": "1",
+    "animal": "1",
+    "tutor": "1",
+    "prescricoes": [{ "medicacao": "string" }],
+    "medicamentos": [{
+        "nomeMedicamento": {
+            "quantidade": 1,
+            "medida": "ml"
+        }
+    }],
+    "dataAtendimento": "2022-11-08T01:00:02.826638901",
+    "tipo-cirurgia": "CASTRACAO",
+    "asa": "ASA1",
+    "diagnostico": "string",
+    "observacoes": "string",
+    "categoria-paciente": "",
+    "procedimentos": [{
+        "tipoProcedimento": "IMUNIZACAO",
+        "tipo": "PRESCRITIVO",
+        "descricao": "string"
+    }]
+}
+
+class FormProntuario extends React.Component<any, State> {
     private readonly layoutFormContext: Layouts.LayoutFormContext;
 
     constructor(props: any) {
         super(props);
 
+        this.state = {
+            tutores: [],
+            animais: [],
+            veterinarios: []
+        };
+
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
     }
 
     render(): React.ReactNode {
+        const {tutores, animais, veterinarios} = this.state;
+
         return (
             <Layouts.RestrictedFormLayout id="prontuario-formulario" style={{marginBottom: "20px"}}
                                           layoutFormContext={this.layoutFormContext}>
@@ -49,6 +89,7 @@ class FormProntuario extends React.Component<any> {
                                     <Form.Select name="veterinario" id="veterinario" aria-readonly={true} required>
                                         <option value="">Selecione</option>
 
+                                        {veterinarios.map(({id, nome}) => <option value={id}>{nome}</option>)}
                                     </Form.Select>
                                 </Form.Group>
 
@@ -58,6 +99,7 @@ class FormProntuario extends React.Component<any> {
                                     <Form.Select name="animal" id="animal" required>
                                         <option value="">Selecione</option>
 
+                                        {animais.map(({id, nome}) => <option value={id}>{nome}</option>)}
                                     </Form.Select>
                                 </Form.Group>
 
@@ -67,6 +109,7 @@ class FormProntuario extends React.Component<any> {
                                     <Form.Select name="tutor" id="tutor" required>
                                         <option value="">Selecione</option>
 
+                                        {tutores.map(({id, nome}) => <option value={id}>{nome}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
@@ -95,8 +138,8 @@ class FormProntuario extends React.Component<any> {
                         <fieldset>
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="tipo-cirugia">Tipo de cirurgia</Form.Label>
-                                    <Form.Select name="tipo-cirugia" id="tipo-cirurgia">
+                                    <Form.Label htmlFor="tipo-cirurgia">Tipo de cirurgia</Form.Label>
+                                    <Form.Select name="tipo-cirurgia" id="tipo-cirurgia">
                                         <option value="">Selecione</option>
                                         <option value="CASATRACAO">Castração</option>
                                         <option value="ORTOPEDICA">Ortopedica</option>
@@ -197,33 +240,57 @@ class FormProntuario extends React.Component<any> {
     }
 
     componentDidMount(): void {
-        this.loadUfs();
+        this.carregarTutores();
+        this.carregarAnimais();
+        this.carregarVeterinarios();
     }
 
-    private loadUfs = async () => {
-        this.setState({ufs: await Helpers.Address.loadUfs()});
+    private carregarTutores = async (): Promise<void> => {
+        this.setState({tutores: [{id: 1, nome: "Tutor"}]});
     }
 
-    private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
-        evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
+    private carregarAnimais = async (): Promise<void> => {
+        this.setState({animais: [{id: 1, nome: "Animal"}]});
+    }
 
-        if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
-            this.setState({address: await Helpers.Address.loadAddress(evt.currentTarget.value)});
+    private carregarVeterinarios = async (): Promise<void> => {
+        this.setState({veterinarios: [{id: 1, nome: "Veterinário"}]});
     }
 
     private onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        let data: Contracts.DynamicObject<string> = {};
-
-        new FormData(evt.currentTarget).forEach((value, key) => data[key] = value.toString());
+        const formData = new FormData(evt.currentTarget);
+        const data: Contracts.DynamicObject<any> = {
+            "veterinario": formData.get("veterinario")?.toString() ?? "",
+            "animal": formData.get("animal")?.toString() ?? "",
+            "tutor": formData.get("tutor")?.toString() ?? "",
+            "prescricoes": [{
+                "medicacao": ""
+            }],
+            "medicamentos": [{
+                "nomeMedicamento": formData.get("nomeMedicamento")?.toString() ?? "",
+                "quantidade": formData.get("quantidade")?.toString() ?? "",
+                "medida": formData.get("medida")?.toString() ?? ""
+            }],
+            "tipo-cirurgia": formData.get("tipo-cirurgia")?.toString() ?? "",
+            "asa": formData.get("asa")?.toString() ?? "",
+            "diagnostico": formData.get("diagnostico")?.toString() ?? "",
+            "observacoes": formData.get("observacoes")?.toString() ?? "",
+            "categoria-paciente": formData.get("categoria-paciente")?.toString() ?? "",
+            "procedimentos": [{
+                "tipoProcedimento": formData.get("tipoProcedimento")?.toString() ?? "",
+                "tipo": formData.get("tipo")?.toString() ?? "",
+                "descricao": formData.get("descricao")?.toString() ?? ""
+            }]
+        };
 
         try {
             console.log(data);
 
-            /*await Axios.post(`${env.API}/cadastro-funcionario`, data, {
+            await Axios.post(`${env.API}/cadastro-funcionario`, data, {
                 headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
-            });*/
+            });
 
             this.layoutFormContext.state({formState: "sent", redirect: null, errorMessage: null});
 
