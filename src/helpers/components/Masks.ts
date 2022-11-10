@@ -45,6 +45,19 @@ class Masks {
         .replace(/(\d{3})(\d)/, "$1/$2")
         .replace(/(\d{4})(\d)/, "$1-$2")
         .replace(/(-\d{2})\d+?$/, "$1");
+
+    static crmv = (value: string) => value
+        .replace(/[^a-z0-9\-]+/gmi, "")
+        .replace(/(\D{2})(\D)/, "$1")
+        .replace(/(\D{2})(\d)/, "$1-$2")
+        .replace(/([a-z0-9\-]{8})([a-z0-9\-])/, "$1")
+        .toUpperCase();
+
+    static cnae = (value: string) => value
+        .replace(/\D/g, "")
+        .replace(/(\d{4})(\d)/, "$1-$2")
+        .replace(/(-\d)(\d)/, "$1/$2")
+        .replace(/(\/\d{2})(\d)/, "$1");
 }
 
 export default Masks;

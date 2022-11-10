@@ -2,8 +2,8 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import Axios, { AxiosError } from "axios";
+import {Link} from "react-router-dom";
+import Axios, {AxiosError} from "axios";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
@@ -14,11 +14,12 @@ import env from "../../../env";
 import Storages from "../../../Storages";
 
 interface State {
-    address: Contracts.ViaCEPAddress,
-    ufs: Contracts.IBGEUF[]
+    endereco: Contracts.ViaCEPAddress,
+    ufs: Contracts.IBGEUF[],
+    mostrarCrmv: boolean
 }
 
-class FormFuncionario extends React.Component<any, State>{
+class FormFuncionario extends React.Component<any, State> {
     private layoutFormContext: Layouts.LayoutFormContext;
 
     constructor(props: any) {
@@ -26,7 +27,7 @@ class FormFuncionario extends React.Component<any, State>{
 
         this.state = {
             ufs: [],
-            address: {
+            endereco: {
                 bairro: "",
                 cep: "",
                 complemento: "",
@@ -37,17 +38,19 @@ class FormFuncionario extends React.Component<any, State>{
                 logradouro: "",
                 siafi: "",
                 uf: ""
-            }
+            },
+            mostrarCrmv: false,
         };
 
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
     }
 
     render(): React.ReactNode {
-        const { address, ufs } = this.state;
+        const {endereco, ufs, mostrarCrmv} = this.state;
 
         return (
-            <Layouts.RestrictedFormLayout id="funcionario-formulario" style={{ marginBottom: "20px" }} layoutFormContext={this.layoutFormContext}>
+            <Layouts.RestrictedFormLayout id="funcionario-formulario" style={{marginBottom: "20px"}}
+                                          layoutFormContext={this.layoutFormContext}>
                 <Container>
 
                     <Components.Breadcrumbs>
@@ -69,17 +72,9 @@ class FormFuncionario extends React.Component<any, State>{
                             <legend>Dados Pessoais</legend>
 
                             <Row>
-                                <Form.Group className="mb-3 col-lg-10">
+                                <Form.Group className="mb-3 col-lg-12">
                                     <Form.Label htmlFor="nome">Nome*</Form.Label>
-                                    <Form.Control type="text" name="nome" id="nome" required />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3 col-lg-2">
-                                    <Form.Label htmlFor="crmv">CRMV</Form.Label>
-                                    <Form.Control type="text" name="crmv" id="crmv" />
-                                    <Form.Text className="text-muted">
-                                        Somente para veterinários.
-                                    </Form.Text>
+                                    <Form.Control type="text" name="nome" id="nome" required/>
                                 </Form.Group>
                             </Row>
 
@@ -87,13 +82,30 @@ class FormFuncionario extends React.Component<any, State>{
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="cpf">CPF*</Form.Label>
                                     <Form.Control type="tel" name="cpf" id="cpf"
-                                        onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)} required />
+                                                  onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)}
+                                                  required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="rg">RG*</Form.Label>
-                                    <Form.Control type="tel" name="rg" id="rg" required />
+                                    <Form.Control type="tel" name="rg" id="rg" required/>
                                 </Form.Group>
+
+                                <Form.Group className="mb-3 col-lg-12">
+                                    <Form.Check type="checkbox" label="É veterinário"
+                                                onInput={() => this.setState({mostrarCrmv: !mostrarCrmv})}/>
+                                </Form.Group>
+
+                                {
+                                    mostrarCrmv ?
+                                        (
+                                            <Form.Group className="mb-3 col-lg-12">
+                                                <Form.Label htmlFor="crmv">CRMV</Form.Label>
+                                                <Form.Control type="text" name="crmv" id="crmv"
+                                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.crmv(evt.currentTarget.value)}/>
+                                            </Form.Group>
+                                        ) : <></>
+                                }
                             </Row>
                         </fieldset>
 
@@ -104,30 +116,34 @@ class FormFuncionario extends React.Component<any, State>{
                                 <Form.Group className="mb-3 col-lg-2">
                                     <Form.Label htmlFor="cep">CEP*</Form.Label>
                                     <Form.Control type="tel" name="cep" id="cep"
-                                        onInput={this.onInputCep} required />
+                                                  onInput={this.onInputCep} required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col">
                                     <Form.Label htmlFor="logradouro">Logradouro*</Form.Label>
-                                    <Form.Control type="text" name="logradouro" id="logradouro" defaultValue={address.logradouro} required />
+                                    <Form.Control type="text" name="logradouro" id="logradouro"
+                                                  defaultValue={endereco.logradouro} required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-2">
                                     <Form.Label htmlFor="numero">Número*</Form.Label>
                                     <Form.Control type="tel" name="numero" id="numero"
-                                        onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)} required />
+                                                  onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
+                                                  required/>
                                 </Form.Group>
                             </Row>
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-5">
                                     <Form.Label htmlFor="bairro">Bairro*</Form.Label>
-                                    <Form.Control type="text" name="bairro" id="bairro" defaultValue={address.bairro} required />
+                                    <Form.Control type="text" name="bairro" id="bairro" defaultValue={endereco.bairro}
+                                                  required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-5">
                                     <Form.Label htmlFor="cidade">Cidade*</Form.Label>
-                                    <Form.Control type="text" name="cidade" id="cidade" defaultValue={address.localidade} required />
+                                    <Form.Control type="text" name="cidade" id="cidade"
+                                                  defaultValue={endereco.localidade} required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-2">
@@ -135,7 +151,8 @@ class FormFuncionario extends React.Component<any, State>{
                                     <Form.Select name="estado" id="estado" required>
                                         <option value="">Selecione</option>
 
-                                        {ufs.map((uf) => <option value={uf.sigla} key={uf.id} selected={address.uf == uf.sigla}>{uf.sigla}</option>)}
+                                        {ufs.map((uf) => <option value={uf.sigla} key={uf.id}
+                                                                 selected={endereco.uf == uf.sigla}>{uf.sigla}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
@@ -148,13 +165,14 @@ class FormFuncionario extends React.Component<any, State>{
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="celular">Celular*</Form.Label>
                                     <Form.Control type="tel" name="celular" id="celular"
-                                        onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)} required />
+                                                  onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)}
+                                                  required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="telefone">Telefone</Form.Label>
                                     <Form.Control type="tel" name="telefone" id="telefone"
-                                        onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} />
+                                                  onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)}/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -165,12 +183,12 @@ class FormFuncionario extends React.Component<any, State>{
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="email">E-mail*</Form.Label>
-                                    <Form.Control type="email" name="email" id="email" required />
+                                    <Form.Control type="email" name="email" id="email" required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="senha">Senha*</Form.Label>
-                                    <Form.Control type="password" name="senha" id="senha" required />
+                                    <Form.Control type="password" name="senha" id="senha" required/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -191,14 +209,14 @@ class FormFuncionario extends React.Component<any, State>{
     }
 
     private loadUfs = async () => {
-        this.setState({ ufs: await Helpers.Address.loadUfs() });
+        this.setState({ufs: await Helpers.Address.loadUfs()});
     }
 
     private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
         evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
-            this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
+            this.setState({endereco: await Helpers.Address.loadAddress(evt.currentTarget.value)});
     }
 
     private onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
@@ -210,24 +228,32 @@ class FormFuncionario extends React.Component<any, State>{
 
         try {
             await Axios.post(`${env.API}/cadastro-funcionario`, data, {
-                headers: { "Authorization": `Bearer ${Storages.userStorage.get()?.token}` }
+                headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
             });
 
-            this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
+            this.layoutFormContext.state({formState: "sent", redirect: null, errorMessage: null});
 
             setInterval(() => {
-                this.layoutFormContext.state({ formState: "idle", redirect: "/painel/funcionario", errorMessage: null });
+                this.layoutFormContext.state({formState: "idle", redirect: "/painel/funcionario", errorMessage: null});
             }, 3000);
         } catch (error) {
             const status = (error as AxiosError).response?.status;
 
             switch (status) {
                 case 401:
-                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Usuário não autenticado." });
+                    this.layoutFormContext.state({
+                        formState: "error",
+                        redirect: null,
+                        errorMessage: "Usuário não autenticado."
+                    });
                     break;
 
                 default:
-                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Não foi possivel cadastrar esse funcionário. Por favor tente mais tarde." });
+                    this.layoutFormContext.state({
+                        formState: "error",
+                        redirect: null,
+                        errorMessage: "Não foi possivel cadastrar esse funcionário. Por favor tente mais tarde."
+                    });
                     break;
             }
         }
