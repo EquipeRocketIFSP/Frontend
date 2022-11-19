@@ -2,8 +2,8 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import Axios, { AxiosError } from "axios";
+import {Link} from "react-router-dom";
+import Axios, {AxiosError} from "axios";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
@@ -31,10 +31,11 @@ class FormAnimal extends React.Component<any, State> {
     }
 
     render(): React.ReactNode {
-        const { tutors } = this.state;
+        const {tutors} = this.state;
 
         return (
-            <Layouts.RestrictedFormLayout id="animal-formulario" style={{ marginBottom: "20px" }} layoutFormContext={this.layoutFormContext} >
+            <Layouts.RestrictedFormLayout id="animal-formulario" style={{marginBottom: "20px"}}
+                                          layoutFormContext={this.layoutFormContext}>
                 <Container>
 
                     <Components.Breadcrumbs>
@@ -58,21 +59,22 @@ class FormAnimal extends React.Component<any, State> {
                             <Row>
                                 <Form.Group className="mb-3 col-lg-9">
                                     <Form.Label htmlFor="nome">Nome*</Form.Label>
-                                    <Form.Control type="text" name="nome" id="nome" required />
+                                    <Form.Control type="text" name="nome" id="nome" required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-1">
                                     <Form.Label htmlFor="idade">Idade*</Form.Label>
                                     <Form.Control type="text" name="idade" id="idade"
-                                        onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)} required />
+                                                  onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
+                                                  required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-2">
                                     <Form.Label htmlFor="sexo">Sexo*</Form.Label>
                                     <Form.Select name="sexo" id="sexo" required>
                                         <option value="">Selecione</option>
-                                        <option value="Macho">Macho</option>
-                                        <option value="Fêmea">Fêmea</option>
+                                        <option value="MASCULINO">Macho</option>
+                                        <option value="FEMININO">Fêmea</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
@@ -80,17 +82,24 @@ class FormAnimal extends React.Component<any, State> {
                             <Row>
                                 <Form.Group className="mb-3 col-lg-4">
                                     <Form.Label htmlFor="raca">Raça*</Form.Label>
-                                    <Form.Control type="text" name="raca" id="raca" required />
+                                    <Form.Control type="text" name="raca" id="raca" required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-4">
                                     <Form.Label htmlFor="especie">Espécie*</Form.Label>
-                                    <Form.Control type="text" name="especie" id="especie" required />
+                                    <Form.Control type="text" name="especie" id="especie" required/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-4">
                                     <Form.Label htmlFor="pelagem">Pelagem*</Form.Label>
-                                    <Form.Control type="text" name="pelagem" id="pelagem" required />
+                                    <Form.Control type="text" name="pelagem" id="pelagem" required/>
+                                </Form.Group>
+                            </Row>
+
+                            <Row>
+                                <Form.Group className="mb-3 col-lg-12">
+                                    <Form.Label htmlFor="formaIdentificacao">Forma de identificação</Form.Label>
+                                    <Form.Control type="text" name="formaIdentificacao" id="formaIdentificacao"/>
                                 </Form.Group>
                             </Row>
 
@@ -100,7 +109,7 @@ class FormAnimal extends React.Component<any, State> {
                                     <Form.Select name="tutor" id="tutor" required>
                                         <option value="">Selecione</option>
 
-                                        {tutors.map(({ nome }) => <option value="1">{nome}</option>)}
+                                        {tutors.map(({nome}) => <option value="1">{nome}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
@@ -112,12 +121,12 @@ class FormAnimal extends React.Component<any, State> {
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="pai">Pai</Form.Label>
-                                    <Form.Control type="text" name="pai" id="pai" readOnly />
+                                    <Form.Control type="text" name="pai" id="pai" readOnly/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="mae">Mãe</Form.Label>
-                                    <Form.Control type="text" name="mae" id="mae" readOnly />
+                                    <Form.Control type="text" name="mae" id="mae" readOnly/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -139,9 +148,9 @@ class FormAnimal extends React.Component<any, State> {
 
     private loadTutors = async (): Promise<void> => {
         try {
-            const { data: tutors } = await Axios.get(`${env.API}/cadastro-tutor`, { headers: { "Authorization": `Bearer ${Storages.userStorage.get()?.token}` } });
+            const {data: tutors} = await Axios.get(`${env.API}/cadastro-tutor`, {headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}});
 
-            this.setState({ tutors });
+            this.setState({tutors});
         } catch (error) {
             console.error(error);
         }
@@ -156,24 +165,32 @@ class FormAnimal extends React.Component<any, State> {
 
         try {
             await Axios.post(`${env.API}/cadastro-animal`, data, {
-                headers: { "Authorization": `Bearer ${Storages.userStorage.get()?.token}` }
+                headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
             });
 
-            this.layoutFormContext.state({ formState: "sent", redirect: null, errorMessage: null });
+            this.layoutFormContext.state({formState: "sent", redirect: null, errorMessage: null});
 
             setInterval(() => {
-                this.layoutFormContext.state({ formState: "idle", redirect: "/painel/animais", errorMessage: null });
+                this.layoutFormContext.state({formState: "idle", redirect: "/painel/animais", errorMessage: null});
             }, 3000);
         } catch (error) {
             const status = (error as AxiosError).response?.status;
 
             switch (status) {
                 case 401:
-                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Usuário não autenticado." });
+                    this.layoutFormContext.state({
+                        formState: "error",
+                        redirect: null,
+                        errorMessage: "Usuário não autenticado."
+                    });
                     break;
 
                 default:
-                    this.layoutFormContext.state({ formState: "error", redirect: null, errorMessage: "Não foi possivel cadastrar esse animal. Por favor tente mais tarde." });
+                    this.layoutFormContext.state({
+                        formState: "error",
+                        redirect: null,
+                        errorMessage: "Não foi possivel cadastrar esse animal. Por favor tente mais tarde."
+                    });
                     break;
             }
         }
