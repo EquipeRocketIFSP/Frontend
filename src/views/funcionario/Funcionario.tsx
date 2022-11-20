@@ -5,7 +5,7 @@ import Components from "../../components/Components";
 import Layouts from "../../layouts/Layouts";
 import env from "../../env";
 import Contracts from "../../contracts/Contracts";
-import ListItemEmployee from "./components/ListItemEmployee";
+import ListItemFuncionario from "./components/ListItemFuncionario";
 
 class Funcionario extends React.Component {
     render(): React.ReactNode {
@@ -15,7 +15,7 @@ class Funcionario extends React.Component {
                     <Container>
                         <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} />
 
-                        <Components.Listing url={`${env.API}/cadastro-funcionario`} listItem={ListItemEmployee} />
+                        <Components.Listing url={`${env.API}/funcionario`} listItem={ListItemFuncionario} />
                     </Container>
                 </main>
             </Layouts.RestrictedLayout>

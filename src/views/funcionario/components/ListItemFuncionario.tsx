@@ -8,13 +8,15 @@ import Contracts from "../../../contracts/Contracts";
 interface Props extends Contracts.ListingData {
 }
 
-class ListItemEmployee extends React.Component<Props> {
+class ListItemFuncionario extends React.Component<Props> {
     render(): React.ReactNode {
+        const {id, nome} = this.props;
+
         return (
             <Row className="shadow rounded mb-3 align-items-center">
                 <Row className="col-md-10">
-                    <div className="col-md-2">1</div>
-                    <div className="col-md-10">{this.props.nome}</div>
+                    <div className="col-md-2">{id}</div>
+                    <div className="col-md-10">{nome}</div>
                 </Row>
 
                 <div className="col-md-2">
@@ -31,4 +33,4 @@ class ListItemEmployee extends React.Component<Props> {
     }
 }
 
-export default ListItemEmployee;
+export default ListItemFuncionario;

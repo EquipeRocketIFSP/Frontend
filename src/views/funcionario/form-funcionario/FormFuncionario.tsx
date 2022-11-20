@@ -193,6 +193,8 @@ class FormFuncionario extends React.Component<any, State> {
                             </Row>
                         </fieldset>
 
+                        <input type="hidden" name="clinica" value="1"/>
+
                         <div className="d-flex justify-content-between">
                             <Link className="btn btn-outline-secondary" to="/painel/funcionarios">Voltar</Link>
                             <Button variant="success" type="submit">Cadastrar</Button>
@@ -226,15 +228,18 @@ class FormFuncionario extends React.Component<any, State> {
 
         new FormData(evt.currentTarget).forEach((value, key) => data[key] = value.toString());
 
+        if (!data["crmv"])
+            data["crmv"] = "";
+
         try {
-            await Axios.post(`${env.API}/cadastro-funcionario`, data, {
+            await Axios.post(`${env.API}/funcionario`, data, {
                 headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
             });
 
             this.layoutFormContext.state({formState: "sent", redirect: null, errorMessage: null});
 
             setInterval(() => {
-                this.layoutFormContext.state({formState: "idle", redirect: "/painel/funcionario", errorMessage: null});
+                this.layoutFormContext.state({formState: "idle", redirect: "/painel/funcionarios", errorMessage: null});
             }, 3000);
         } catch (error) {
             const status = (error as AxiosError).response?.status;
