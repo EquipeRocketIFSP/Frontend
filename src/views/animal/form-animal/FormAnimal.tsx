@@ -1,20 +1,22 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import Axios, {AxiosError} from "axios";
+import Select, {MultiValue} from "react-select";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
-import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
 import Storages from "../../../Storages";
 import env from "../../../env";
 
 interface State {
-    tutors: Contracts.Tutor[]
+    tutores: Contracts.Tutor[],
+    tutoresSelecionados: { id: number }[]
 }
 
 class FormAnimal extends React.Component<any, State> {
@@ -24,14 +26,17 @@ class FormAnimal extends React.Component<any, State> {
         super(props);
 
         this.state = {
-            tutors: []
+            tutores: [],
+            tutoresSelecionados: []
         };
 
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
     }
 
     render(): React.ReactNode {
-        const {tutors} = this.state;
+        const tutores = this.state.tutores.map(({id, nome}) => {
+            return {value: id, label: nome};
+        });
 
         return (
             <Layouts.RestrictedFormLayout id="animal-formulario" style={{marginBottom: "20px"}}
@@ -105,12 +110,9 @@ class FormAnimal extends React.Component<any, State> {
 
                             <Row>
                                 <Form.Group className="mb-3 col-lg-12">
-                                    <Form.Label htmlFor="tutor">Tutor*</Form.Label>
-                                    <Form.Select name="tutor" id="tutor" required>
-                                        <option value="">Selecione</option>
-
-                                        {tutors.map(({nome}) => <option value="1">{nome}</option>)}
-                                    </Form.Select>
+                                    <Form.Label htmlFor="tutores">Tutor*</Form.Label>
+                                    <Select name="tutores" id="tutores" options={tutores}
+                                            onChange={this.onChangeTutores} isMulti required/>
                                 </Form.Group>
                             </Row>
                         </fieldset>
@@ -131,6 +133,8 @@ class FormAnimal extends React.Component<any, State> {
                             </Row>
                         </fieldset>
 
+                        <input type="hidden" name="clinica" value="1"/>
+
                         <div className="d-flex justify-content-between">
                             <Link className="btn btn-outline-secondary" to="/painel/tutores">Voltar</Link>
                             <Button variant="success" type="submit">Cadastrar</Button>
@@ -148,9 +152,9 @@ class FormAnimal extends React.Component<any, State> {
 
     private loadTutors = async (): Promise<void> => {
         try {
-            const {data: tutors} = await Axios.get(`${env.API}/cadastro-tutor`, {headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}});
+            const {data: tutores} = await Axios.get(`${env.API}/tutor`, {headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}});
 
-            this.setState({tutors});
+            this.setState({tutores});
         } catch (error) {
             console.error(error);
         }
@@ -159,12 +163,18 @@ class FormAnimal extends React.Component<any, State> {
     private onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        let data: Contracts.DynamicObject<string> = {};
+        let data: Contracts.DynamicObject<any> = {};
 
         new FormData(evt.currentTarget).forEach((value, key) => data[key] = value.toString());
 
+        data["tutores"] = this.state.tutoresSelecionados;
+
+        //TODO: Remover null dos campos mae e pai na versão final.
+        data["mae"] = null;
+        data["pai"] = null;
+
         try {
-            await Axios.post(`${env.API}/cadastro-animal`, data, {
+            await Axios.post(`${env.API}/animal`, data, {
                 headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
             });
 
@@ -194,6 +204,14 @@ class FormAnimal extends React.Component<any, State> {
                     break;
             }
         }
+    }
+
+    private onChangeTutores = (data: MultiValue<{ value: number, label: string }>) => {
+        const tutoresSelecionados = data.map(({value}) => {
+            return {id: value};
+        });
+
+        this.setState({tutoresSelecionados});
     }
 }
 

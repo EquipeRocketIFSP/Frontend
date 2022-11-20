@@ -1,20 +1,21 @@
 import React from "react";
 import Button from "react-bootstrap/esm/Button";
 import Row from "react-bootstrap/esm/Row";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import Contracts from "../../../contracts/Contracts";
 
-interface Props extends Contracts.ListingData { }
+interface Props extends Contracts.ListingData {
+}
 
 class ListItemAnimal extends React.Component<Props> {
     render(): React.ReactNode {
-        const {nome}=this.props;
+        const {id, nome} = this.props;
 
         return (
             <Row className="shadow rounded mb-3 align-items-center">
                 <Row className="col-md-10">
-                    <div className="col-md-2">1</div>
+                    <div className="col-md-2">{id}</div>
                     <div className="col-md-10">{nome}</div>
                 </Row>
 
