@@ -14,7 +14,7 @@ class Animal extends React.Component {
                     <Container>
                         <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} />
 
-                        <Components.Listing url={`${env.API}/cadastro-animal`} listItem={ListItemAnimal} />
+                        <Components.Listing url={`${env.API}/animal`} listItem={ListItemAnimal} />
                     </Container>
                 </main>
             </Layouts.RestrictedLayout>
