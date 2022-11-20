@@ -2,14 +2,18 @@ import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import Components from "../../components/Components";
 import Layouts from "../../layouts/Layouts";
+import env from "../../env";
+import ListItemAgendamento from "./components/ListItemAgendamento";
 
 class Schedule extends React.Component {
     render(): React.ReactNode {
         return (
             <Layouts.RestrictedLayout>
-                <main id="funcionarios">
+                <main id="agendamento">
                     <Container>
                         <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} />
+
+                        <Components.Listing url={`${env.API}/agendamento`} listItem={ListItemAgendamento} />
                     </Container>
                 </main>
             </Layouts.RestrictedLayout>
