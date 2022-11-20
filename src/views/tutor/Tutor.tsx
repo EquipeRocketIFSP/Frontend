@@ -13,7 +13,7 @@ class Tutor extends React.Component {
                     <Container>
                         <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} />
 
-                        <Components.Listing url={`${env.API}/cadastro-tutor`} listItem={ListItemTutor} />
+                        <Components.Listing url={`${env.API}/tutor`} listItem={ListItemTutor} />
                     </Container>
                 </main>
             </Layouts.RestrictedLayout>
