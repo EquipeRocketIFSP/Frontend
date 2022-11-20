@@ -14,8 +14,8 @@ class Routes extends React.Component {
                     <Route path="/painel/funcionarios" element={<Views.Funcionario.Page/>}/>
                     <Route path="/painel/funcionarios/adicionar" element={<Views.Funcionario.Form/>}/>
 
-                    <Route path="/painel/agenda" element={<Views.Schedule.Page/>}/>
-                    <Route path="/painel/agenda/adicionar" element={<Views.Schedule.Form/>}/>
+                    <Route path="/painel/agenda" element={<Views.Agendamento.Page/>}/>
+                    <Route path="/painel/agenda/adicionar" element={<Views.Agendamento.Form/>}/>
 
                     <Route path="/painel/tutores" element={<Views.Tutor.Page/>}/>
                     <Route path="/painel/tutores/adicionar" element={<Views.Tutor.Form/>}/>

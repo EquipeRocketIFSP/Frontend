@@ -19,7 +19,7 @@ interface State {
     tutores: Contracts.ListingData[],
 }
 
-class FormSchedule extends React.Component <any, State> {
+class FormAgendamento extends React.Component <any, State> {
     private layoutFormContext: Layouts.LayoutFormContext;
 
     constructor(props: any) {
@@ -172,4 +172,4 @@ class FormSchedule extends React.Component <any, State> {
     }
 }
 
-export default FormSchedule;
+export default FormAgendamento;

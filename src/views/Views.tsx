@@ -5,8 +5,8 @@ import PainelView from "./painel/Painel";
 import FuncionarioView from "./funcionario/Funcionario";
 import FormFuncionarioView from "./funcionario/form-funcionario/FormFuncionario";
 
-import ScheduleView from "./schedule/Schedule";
-import FormScheduleView from "./schedule/form-schedule/FormSchedule";
+import AgendamentoView from "./agendamento/Agendamento";
+import FormAgendamentoView from "./agendamento/form-agendamento/FormAgendamento";
 
 import TutorView from "./tutor/Tutor";
 import TutorFormView from "./tutor/form-tutor/FormTutor";
@@ -34,12 +34,12 @@ namespace Views {
         export type Form = FormFuncionarioView;
     }
 
-    export namespace Schedule {
-        export const Page = ScheduleView;
-        export const Form = FormScheduleView;
+    export namespace Agendamento {
+        export const Page = AgendamentoView;
+        export const Form = FormAgendamentoView;
 
-        export type Page = ScheduleView;
-        export type Form = FormScheduleView;
+        export type Page = AgendamentoView;
+        export type Form = FormAgendamentoView;
     }
 
     export namespace Tutor {

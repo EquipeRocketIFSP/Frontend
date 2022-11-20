@@ -5,7 +5,7 @@ import Layouts from "../../layouts/Layouts";
 import env from "../../env";
 import ListItemAgendamento from "./components/ListItemAgendamento";
 
-class Schedule extends React.Component {
+class Agendamento extends React.Component {
     render(): React.ReactNode {
         return (
             <Layouts.RestrictedLayout>
@@ -33,4 +33,4 @@ class Schedule extends React.Component {
     }
 }
 
-export default Schedule;
+export default Agendamento;
