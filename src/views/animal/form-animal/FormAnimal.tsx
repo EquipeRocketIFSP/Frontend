@@ -164,6 +164,7 @@ class FormAnimal extends React.Component<any, State> {
         evt.preventDefault();
 
         let data: Contracts.DynamicObject<any> = {};
+        const referrer = Storages.referrerStorage.get();
 
         new FormData(evt.currentTarget).forEach((value, key) => data[key] = value.toString());
 
@@ -179,9 +180,14 @@ class FormAnimal extends React.Component<any, State> {
             });
 
             this.layoutFormContext.state({formState: "sent", redirect: null, errorMessage: null});
+            Storages.referrerStorage.truncate();
 
             setInterval(() => {
-                this.layoutFormContext.state({formState: "idle", redirect: "/painel/animais", errorMessage: null});
+                this.layoutFormContext.state({
+                    formState: "idle",
+                    redirect: referrer ?? "/painel/animais",
+                    errorMessage: null
+                });
             }, 3000);
         } catch (error) {
             const status = (error as AxiosError).response?.status;
