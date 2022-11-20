@@ -75,8 +75,10 @@ namespace Contracts {
         nome: string
     }
 
-    export interface ListingMedicalRecordData extends ListingData {
-        data: string,
+    export interface ListingDataAgendamento {
+        id: number,
+        tipoConsulta: string,
+        dataConsulta: string,
     }
 }
 
