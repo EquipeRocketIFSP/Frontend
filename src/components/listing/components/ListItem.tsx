@@ -6,15 +6,16 @@ import {Link} from "react-router-dom";
 import Contracts from "../../../contracts/Contracts";
 
 interface Props extends Contracts.ListingData {
+    exibirModalDados?: (id: number) => void
 }
 
-class ListItemTutor extends React.Component<Props> {
+class ListItem extends React.Component<Props> {
     render(): React.ReactNode {
-        const {id, nome} = this.props;
+        const {id, nome, exibirModalDados} = this.props;
 
         return (
             <Row className="shadow rounded mb-3 align-items-center">
-                <Row className="col-md-10">
+                <Row className="col-md-10" style={{cursor:"pointer"}} onClick={() => exibirModalDados ? exibirModalDados(id) : null}>
                     <div className="col-md-2">{id}</div>
                     <div className="col-md-10">{nome}</div>
                 </Row>
@@ -33,4 +34,4 @@ class ListItemTutor extends React.Component<Props> {
     }
 }
 
-export default ListItemTutor;
+export default ListItem;

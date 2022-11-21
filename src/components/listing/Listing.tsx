@@ -4,10 +4,12 @@ import Axios from "axios";
 import Storages from "../../Storages";
 import Alert from "react-bootstrap/esm/Alert";
 import Button from "react-bootstrap/esm/Button";
+import ListItem from "./components/ListItem";
 
 interface Props {
     url: string,
-    listItem: React.ClassType<any, any, any>
+    listItem?: React.ClassType<any, any, any>,
+    exibirModalDados?: (id: number) => void
 }
 
 interface State {
@@ -26,7 +28,7 @@ class Listing extends React.Component<Props, State> {
     }
 
     render(): ReactNode {
-        const {listItem} = this.props;
+        const {listItem, exibirModalDados} = this.props;
         const {list, stage} = this.state;
 
         return (
@@ -56,7 +58,7 @@ class Listing extends React.Component<Props, State> {
                     ) : <></>
                 }
 
-                {list.map((item, key) => React.createElement(listItem, {...item, key}))}
+                {list.map((item, key) => React.createElement(listItem ?? ListItem, {...item, key, exibirModalDados}))}
             </section>
         );
     }

@@ -3,7 +3,6 @@ import Layouts from "../../layouts/Layouts";
 import Container from "react-bootstrap/Container";
 import Components from "../../components/Components";
 import env from "../../env";
-import ListItemEmployee from "../funcionario/components/ListItemEmployee";
 
 class Prontuario extends React.Component<any, any> {
     render(): React.ReactNode {
@@ -13,7 +12,7 @@ class Prontuario extends React.Component<any, any> {
                     <Container>
                         <Components.SearchBar setSearch={()=>{}} toggleTrash={()=>{}}/>
 
-                        <Components.Listing url={`${env.API}/cadastro-prontuario`} listItem={ListItemEmployee}/>
+                        <Components.Listing url={`${env.API}/cadastro-prontuario`} />
                     </Container>
                 </main>
             </Layouts.RestrictedLayout>

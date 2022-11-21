@@ -4,19 +4,35 @@ import Container from "react-bootstrap/esm/Container";
 import Components from "../../components/Components";
 import env from "../../env";
 import Layouts from "../../layouts/Layouts";
-import ListItemAnimal from "./components/ListItemAnimal";
+import ModalExibirDados from "../animal/components/ModalExibirDados";
 
-class Animal extends React.Component {
+interface State {
+    recurso: number | null
+}
+
+class Animal extends React.Component<any, State> {
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            recurso: null
+        };
+    }
+
     render(): React.ReactNode {
+        const {recurso} = this.state;
+
         return (
             <Layouts.RestrictedLayout>
                 <main id="animais">
                     <Container>
-                        <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash} />
+                        <Components.SearchBar setSearch={this.setSearch} toggleTrash={this.toggleTrash}/>
 
-                        <Components.Listing url={`${env.API}/animal`} listItem={ListItemAnimal} />
+                        <Components.Listing url={`${env.API}/animal`} exibirModalDados={(id: number) => this.setState({recurso: id})}/>
                     </Container>
                 </main>
+
+                {recurso ? <ModalExibirDados id={recurso} fecharModal={() => this.setState({recurso: null})}/> : <></>}
             </Layouts.RestrictedLayout>
         );
     }

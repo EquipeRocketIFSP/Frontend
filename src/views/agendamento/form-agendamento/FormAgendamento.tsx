@@ -68,7 +68,7 @@ class FormAgendamento extends React.Component <any, State> {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-2 d-flex align-items-end justify-content-evenly">
-                                    <Button variant="outline-primary"><i className="fa-solid fa-eye"></i></Button>
+                                    {/*<Button variant="outline-primary"><i className="fa-solid fa-eye"></i></Button>*/}
 
                                     <Link className="btn btn-outline-primary" to="/painel/animais/adicionar"
                                           onClick={() => Storages.referrerStorage.set(window.location.pathname)}>

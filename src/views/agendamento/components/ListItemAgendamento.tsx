@@ -6,15 +6,17 @@ import {Link} from "react-router-dom";
 import Contracts from "../../../contracts/Contracts";
 
 interface Props extends Contracts.ListingDataAgendamento {
+    exibirModalDados?: (id: number) => void
 }
 
 class ListItemAgendamento extends React.Component<Props> {
     render(): React.ReactNode {
-        const {id, tipoConsulta,dataConsulta} = this.props;
+        const {id, tipoConsulta, dataConsulta, exibirModalDados} = this.props;
 
         return (
             <Row className="shadow rounded mb-3 align-items-center">
-                <Row className="col-md-10">
+                <Row className="col-md-10" style={{cursor: "pointer"}}
+                     onClick={() => exibirModalDados ? exibirModalDados(id) : null}>
                     <div className="col-md-2">{id}</div>
                     <div className="col-md-8">{tipoConsulta}</div>
                     <div className="col-md-2">{new Date(dataConsulta).toLocaleString("pt")}</div>

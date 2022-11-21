@@ -33,7 +33,7 @@ namespace Contracts {
         regiao: { id: number, sigla: string, nome: string }
     }
 
-    export interface PersonPersonalData {
+    export interface DadosPessoais {
         id: number,
         nome: string,
         cpf: string,
@@ -45,16 +45,15 @@ namespace Contracts {
         cidade: string,
         estado: string,
         celular: string,
-        telefone: string,
+        telefone: string | null,
+        email: string
     }
 
-    export interface Employees extends PersonPersonalData {
-        crmv: string,
-        email: string,
-        senha: string,
+    export interface Funcionario extends DadosPessoais {
+        crmv: string | null
     }
 
-    export interface Tutor extends PersonPersonalData {
+    export interface Tutor extends DadosPessoais {
     }
 
     export interface Animal {
@@ -70,9 +69,16 @@ namespace Contracts {
         mae: string | null
     }
 
+    export interface Agendamento {
+        id: number,
+        criadoEm: string,
+        dataConsulta: string,
+        tipoConsulta: string,
+    }
+
     export interface ListingData {
         id: number,
-        nome: string
+        nome: string,
     }
 
     export interface ListingDataAgendamento {
