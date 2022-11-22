@@ -1,3 +1,5 @@
+import Enums from "../enums/Enums";
+
 namespace Contracts {
     export interface DynamicObject<I> {
         [key: string]: I
@@ -60,11 +62,12 @@ namespace Contracts {
         id: number,
         nome: string,
         idade: string,
-        sexo: string,
+        sexo: "MASCULINO" | "FEMININO",
         raca: string,
         especie: string,
         pelagem: string,
         tutor: string,
+        formaIdentificacao: string,
         pai: string | null,
         mae: string | null
     }
@@ -76,6 +79,20 @@ namespace Contracts {
         tipoConsulta: string,
     }
 
+    export interface Prontuario {
+        id: number,
+        veterinario: string,
+        diagnostico: string,
+        observacoes: string,
+        medicamento: string,
+        medida: string,
+        exames: null,
+        procedimento: null,
+        prescricoes: string,
+        quantidade: number,
+        animal: Animal
+    }
+
     export interface ListingData {
         id: number,
         nome: string,
@@ -85,6 +102,12 @@ namespace Contracts {
         id: number,
         tipoConsulta: string,
         dataConsulta: string,
+    }
+
+    export interface ListingDataProntuario {
+        id: number,
+        veterinario: string,
+        animal: string
     }
 }
 
