@@ -20,6 +20,7 @@ interface State {
 
 class FormProntuario extends React.Component<any, State> {
     private readonly layoutFormContext: Layouts.LayoutFormContext;
+    private readonly userData: Contracts.UserData | null;
 
     constructor(props: any) {
         super(props);
@@ -30,6 +31,7 @@ class FormProntuario extends React.Component<any, State> {
         };
 
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
+        this.userData = Storages.userStorage.get();
     }
 
     render(): React.ReactNode {
@@ -58,12 +60,10 @@ class FormProntuario extends React.Component<any, State> {
                         <fieldset>
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="veterinario">Veterinário*</Form.Label>
+                                    <Form.Label>Veterinário*</Form.Label>
+                                    <Form.Control type="text" defaultValue={this.userData?.nome ?? ""} style={{opacity: 0.5}} readOnly/>
 
-                                    <Form.Select name="veterinario" id="veterinario" aria-readonly={true} required>
-                                        <option value="">Selecione</option>
-                                        <option value="5">Veterinário</option>
-                                    </Form.Select>
+                                    <input type="hidden" value={this.userData?.id} name="veterinario"/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-6">
