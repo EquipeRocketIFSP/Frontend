@@ -39,7 +39,7 @@ class ModalExibirDados extends React.Component<Props, State> {
                     data ? (
                         <Modal.Body>
                             <label className="col-12"><b>Nome:</b> {data.animal.nome}</label>
-                            <label className="col-12"><b>Idade:</b> {data.animal.idade}</label>
+                            <label className="col-12"><b>Idade:</b> {data.animal.idade} anos</label>
                             <label className="col-12"><b>Sexo:</b> {Enums.SexoAnimal[data.animal.sexo]}</label>
                             <label className="col-12"><b>Especie:</b> {data.animal.especie}</label>
                             <label className="col-12"><b>Raça:</b> {data.animal.raca}</label>

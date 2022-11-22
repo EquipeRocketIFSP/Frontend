@@ -10,17 +10,31 @@ import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
 import Container from "react-bootstrap/Container";
 import Layouts from "../../../layouts/Layouts";
+import env from "../../../env";
+import Storages from "../../../Storages";
 
-class FormProntuario extends React.Component<any> {
+interface State {
+    animais: Contracts.ListingData[],
+    tutores: Contracts.ListingData[],
+}
+
+class FormProntuario extends React.Component<any, State> {
     private readonly layoutFormContext: Layouts.LayoutFormContext;
 
     constructor(props: any) {
         super(props);
 
+        this.state = {
+            tutores: [],
+            animais: []
+        };
+
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
     }
 
     render(): React.ReactNode {
+        const {tutores, animais} = this.state;
+
         return (
             <Layouts.RestrictedFormLayout id="prontuario-formulario" style={{marginBottom: "20px"}}
                                           layoutFormContext={this.layoutFormContext}>
@@ -43,30 +57,22 @@ class FormProntuario extends React.Component<any> {
                     <Form onSubmit={this.onSubmit}>
                         <fieldset>
                             <Row>
-                                <Form.Group className="mb-3 col-lg-4">
+                                <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="veterinario">Veterinário*</Form.Label>
 
                                     <Form.Select name="veterinario" id="veterinario" aria-readonly={true} required>
                                         <option value="">Selecione</option>
-
+                                        <option value="5">Veterinário</option>
                                     </Form.Select>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3 col-lg-4">
+                                <Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="animal">Animal*</Form.Label>
 
                                     <Form.Select name="animal" id="animal" required>
                                         <option value="">Selecione</option>
 
-                                    </Form.Select>
-                                </Form.Group>
-
-                                <Form.Group className="mb-3 col-lg-4">
-                                    <Form.Label htmlFor="tutor">Tutor*</Form.Label>
-
-                                    <Form.Select name="tutor" id="tutor" required>
-                                        <option value="">Selecione</option>
-
+                                        {animais.map(({id, nome}) => <option value={id}>{nome}</option>)}
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
@@ -75,8 +81,8 @@ class FormProntuario extends React.Component<any> {
                         <fieldset>
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="nomeMedicamento">Medicamento</Form.Label>
-                                    <Form.Control type="text" name="nomeMedicamento" id="nomeMedicamento"/>
+                                    <Form.Label htmlFor="medicamento">Medicamento</Form.Label>
+                                    <Form.Control type="text" name="medicamento" id="medicamento"/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 col-lg-3">
@@ -95,14 +101,14 @@ class FormProntuario extends React.Component<any> {
                         <fieldset>
                             <Row>
                                 <Form.Group className="mb-3 col-lg-6">
-                                    <Form.Label htmlFor="tipo-cirugia">Tipo de cirurgia</Form.Label>
-                                    <Form.Select name="tipo-cirugia" id="tipo-cirurgia">
+                                    <Form.Label htmlFor="tipoCirugia">Tipo de cirurgia</Form.Label>
+                                    <Form.Select name="tipoCirugia" id="tipoCirugia">
                                         <option value="">Selecione</option>
-                                        <option value="CASATRACAO">Castração</option>
-                                        <option value="ORTOPEDICA">Ortopedica</option>
-                                        <option value="OFTALMICA">Oftalmica</option>
-                                        <option value="TECIDOS_MOLES">Tecidos Moles</option>
-                                        <option value="ODONTOLOGICA">Odontologica</option>
+                                        <option value="Castração">Castração</option>
+                                        <option value="Ortopedica">Ortopedica</option>
+                                        <option value="Oftalmica">Oftalmica</option>
+                                        <option value="Tecidos Moles">Tecidos Moles</option>
+                                        <option value="Odontologica">Odontologica</option>
                                     </Form.Select>
                                 </Form.Group>
 
@@ -110,20 +116,20 @@ class FormProntuario extends React.Component<any> {
                                     <Form.Label htmlFor="asa">Asa</Form.Label>
                                     <Form.Select name="asa" id="asa">
                                         <option value="">Selecione</option>
-                                        <option value="ASA1">Asa 1</option>
-                                        <option value="ASA2">Asa 2</option>
-                                        <option value="ASA3">Asa 3</option>
-                                        <option value="ASA4">Asa 4</option>
+                                        <option value="Asa 1">Asa 1</option>
+                                        <option value="Asa 2">Asa 2</option>
+                                        <option value="Asa 3">Asa 3</option>
+                                        <option value="Asa 4">Asa 4</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
 
-                            <Row>
+                            {/*<Row>
                                 <Form.Group className="mb-3 col-lg-12">
                                     <Form.Label htmlFor="asa">Categoria do Paciente</Form.Label>
                                     <Form.Control type="text" name="categoria-paciente"/>
                                 </Form.Group>
-                            </Row>
+                            </Row>*/}
                         </fieldset>
 
                         <fieldset>
@@ -155,18 +161,18 @@ class FormProntuario extends React.Component<any> {
 
                         <fieldset>
                             <Row>
-                                <Form.Group className="mb-3 col-lg-6">
+                                <Form.Group className="mb-3 col-lg-12">
                                     <Form.Label htmlFor="tipoProcedimento">Tipo de procedimento</Form.Label>
 
-                                    <Form.Select name="tipoProcedimento" id="tipoProcedimento">
+                                    <Form.Select name="procedimento" id="tipoProcedimento">
                                         <option value="">Selecione</option>
-                                        <option value="IMUNIZACAO">Imunização</option>
-                                        <option value="EXAME">Exame</option>
-                                        <option value="MEDICACAO">Medicação</option>
+                                        <option value="Imunização">Imunização</option>
+                                        <option value="Exame">Exame</option>
+                                        <option value="Medicação">Medicação</option>
                                     </Form.Select>
                                 </Form.Group>
 
-                                <Form.Group className="mb-3 col-lg-6">
+                                {/*<Form.Group className="mb-3 col-lg-6">
                                     <Form.Label htmlFor="tipo">Tipo</Form.Label>
 
                                     <Form.Select name="tipo" id="tipo">
@@ -174,16 +180,18 @@ class FormProntuario extends React.Component<any> {
                                         <option value="PRESCRITIVO">Prescritivo</option>
                                         <option value="CONCLUSIVO">Conclusivo</option>
                                     </Form.Select>
-                                </Form.Group>
+                                </Form.Group>*/}
                             </Row>
 
-                            <Row>
+                            {/*<Row>
                                 <Form.Group className="mb-3 col-lg-12">
                                     <Form.Label htmlFor="descricao">Descrição</Form.Label>
                                     <Form.Control as="textarea" name="descricao"/>
                                 </Form.Group>
-                            </Row>
+                            </Row>*/}
                         </fieldset>
+
+                        <input type="hidden" name="clinica" value="1"/>
 
                         <div className="d-flex justify-content-between">
                             <Link className="btn btn-outline-secondary" to="/painel/funcionarios">Voltar</Link>
@@ -196,19 +204,33 @@ class FormProntuario extends React.Component<any> {
         );
     }
 
-    componentDidMount(): void {
-        this.loadUfs();
+    componentDidMount() {
+        this.carregarAnimais();
+        //this.carregarTutores();
     }
 
-    private loadUfs = async () => {
-        this.setState({ufs: await Helpers.Address.loadUfs()});
+    private carregarAnimais = async () => {
+        try {
+            const {data} = await Axios.get<Contracts.ListingData[]>(`${env.API}/animal`, {
+                headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
+            });
+
+            this.setState({animais: data});
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
-        evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
+    private carregarTutores = async () => {
+        try {
+            const {data} = await Axios.get<Contracts.ListingData[]>(`${env.API}/tutor`, {
+                headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
+            });
 
-        if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
-            this.setState({address: await Helpers.Address.loadAddress(evt.currentTarget.value)});
+            this.setState({tutores: data});
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     private onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
@@ -221,9 +243,9 @@ class FormProntuario extends React.Component<any> {
         try {
             console.log(data);
 
-            /*await Axios.post(`${env.API}/cadastro-funcionario`, data, {
+            await Axios.post(`${env.API}/prontuario`, data, {
                 headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
-            });*/
+            });
 
             this.layoutFormContext.state({formState: "sent", redirect: null, errorMessage: null});
 
