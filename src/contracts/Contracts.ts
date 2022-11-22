@@ -6,9 +6,10 @@ namespace Contracts {
     }
 
     export interface UserData {
+        id: number,
         token: string,
         nome: string | null,
-        crmv: string | null
+        crmv: string | null,
     }
 
     export interface Redirect {
