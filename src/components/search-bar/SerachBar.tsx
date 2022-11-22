@@ -28,7 +28,7 @@ class SearchBar extends Component<Props, State>{
             <div className="bg-light search-bar">
                 <div className="container-fluid d-flex justify-content-between align-items-center">
 
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={this.onSubmit} style={{opacity:"0",pointerEvents:"none"}}>
                         <div className="input-group">
                             <input type="text" name="buscar" className="form-control" placeholder="Buscar" value={this.state.search} onInput={({ currentTarget }) => this.setState({ search: currentTarget.value })} />
                             <button className="btn btn-outline-secondary" type="submit"><i className="fa fa-solid fa-magnifying-glass"></i></button>
@@ -58,7 +58,7 @@ class SearchBar extends Component<Props, State>{
                                     </button>
                                 ) :
                                 (
-                                    <button className="btn d-flex flex-column align-items-center" onClick={this.onClickBtnTrash}>
+                                    <button className="btn d-flex flex-column align-items-center" style={{opacity:"0",pointerEvents:"none"}} onClick={this.onClickBtnTrash}>
                                         <i className="fa-solid fa-trash-can"></i>
                                         {window.innerWidth > 767 ? "Lixeira" : ""}
                                     </button>

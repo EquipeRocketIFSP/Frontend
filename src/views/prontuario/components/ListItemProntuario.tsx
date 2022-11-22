@@ -21,7 +21,7 @@ class ListItemProntuario extends React.Component<Props> {
                     <div className="col-md-10">{animal}</div>
                 </Row>
 
-                {/*<div className="col-md-2">
+                <div className="col-md-2" style={{opacity:"0",pointerEvents:"none"}}>
                     <Link to="editar/" className="btn">
                         <i className="fa-regular fa-pen-to-square"></i>
                     </Link>
@@ -29,7 +29,7 @@ class ListItemProntuario extends React.Component<Props> {
                     <Button variant="">
                         <i className="fa-regular fa-trash"></i>
                     </Button>
-                </div>*/}
+                </div>
             </Row>
         );
     }

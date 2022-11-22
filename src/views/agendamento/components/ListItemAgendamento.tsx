@@ -22,7 +22,7 @@ class ListItemAgendamento extends React.Component<Props> {
                     <div className="col-md-2">{new Date(dataConsulta).toLocaleString("pt")}</div>
                 </Row>
 
-                <div className="col-md-2">
+                <div className="col-md-2" style={{opacity:"0",pointerEvents:"none"}}>
                     <Link to="editar/" className="btn">
                         <i className="fa-regular fa-pen-to-square"></i>
                     </Link>

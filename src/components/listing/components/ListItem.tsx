@@ -20,7 +20,7 @@ class ListItem extends React.Component<Props> {
                     <div className="col-md-10">{nome}</div>
                 </Row>
 
-                <div className="col-md-2">
+                <div className="col-md-2" style={{opacity:"0",pointerEvents:"none"}}>
                     <Link to="editar/" className="btn">
                         <i className="fa-regular fa-pen-to-square"></i>
                     </Link>

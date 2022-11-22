@@ -30,7 +30,7 @@ class ModalExibirDados extends React.Component<Props, State> {
         return (
             <Modal show onHide={this.props.fecharModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Tutor</Modal.Title>
+                    <Modal.Title>Agendamento</Modal.Title>
                 </Modal.Header>
 
                 {
