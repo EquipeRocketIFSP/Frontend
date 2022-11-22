@@ -2,12 +2,12 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
-import { RegistrationStage } from "../SignIn";
+import {RegistrationStage} from "../SignIn";
 import Container from "react-bootstrap/Container";
 
 interface Props {
@@ -58,8 +58,8 @@ class FormTechnician extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        const { defaultTechnicianFormData } = this.props;
-        const { address, ufs } = this.state;
+        const {defaultTechnicianFormData} = this.props;
+        const {address, ufs} = this.state;
 
         return (
             <Container className={this.props.fadeIn ? "fade show" : "fade"}>
@@ -94,12 +94,15 @@ class FormTechnician extends React.Component<Props, State> {
                         <Row>
                             <Form.Group className="mb-3 col-lg-10">
                                 <Form.Label htmlFor="tecnico-nome">Nome*</Form.Label>
-                                <Form.Control type="text" name="tecnico-nome" id="tecnico-nome" defaultValue={defaultTechnicianFormData?.nome} required />
+                                <Form.Control type="text" name="tecnico-nome" id="tecnico-nome"
+                                              defaultValue={defaultTechnicianFormData?.nome} required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="tecnico-crmv">CRMV*</Form.Label>
-                                <Form.Control type="text" name="tecnico-crmv" id="tecnico-crmv" required />
+                                <Form.Control type="text" name="tecnico-crmv" id="tecnico-crmv"
+                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.crmv(evt.currentTarget.value)}
+                                              required/>
                             </Form.Group>
                         </Row>
 
@@ -107,12 +110,14 @@ class FormTechnician extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-cpf">CPF*</Form.Label>
                                 <Form.Control type="tel" name="tecnico-cpf" id="tecnico-cpf"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)} defaultValue={defaultTechnicianFormData?.cpf} required />
+                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)}
+                                              defaultValue={defaultTechnicianFormData?.cpf} required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-rg">RG*</Form.Label>
-                                <Form.Control type="tel" name="tecnico-rg" id="tecnico-rg" defaultValue={defaultTechnicianFormData?.rg} required />
+                                <Form.Control type="tel" name="tecnico-rg" id="tecnico-rg"
+                                              defaultValue={defaultTechnicianFormData?.rg} required/>
                             </Form.Group>
                         </Row>
                     </fieldset>
@@ -123,21 +128,23 @@ class FormTechnician extends React.Component<Props, State> {
                         <Row>
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="tecnico-cep">CEP*</Form.Label>
-                                <Form.Control type="tel" name="tecnico-cep" defaultValue={defaultTechnicianFormData?.cep} id="tecnico-cep"
-                                    onInput={this.onInputCep} required />
+                                <Form.Control type="tel" name="tecnico-cep"
+                                              defaultValue={defaultTechnicianFormData?.cep} id="tecnico-cep"
+                                              onInput={this.onInputCep} required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col">
                                 <Form.Label htmlFor="tecnico-logradouro">Logradouro*</Form.Label>
                                 <Form.Control type="text" name="tecnico-logradouro" id="tecnico-logradouro"
-                                    defaultValue={defaultTechnicianFormData?.logradouro ?? address.logradouro} required />
+                                              defaultValue={defaultTechnicianFormData?.logradouro ?? address.logradouro}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="tecnico-numero">Número*</Form.Label>
                                 <Form.Control type="tel" name="tecnico-numero" id="tecnico-numero"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
-                                    defaultValue={defaultTechnicianFormData?.numero} required />
+                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
+                                              defaultValue={defaultTechnicianFormData?.numero} required/>
                             </Form.Group>
                         </Row>
 
@@ -145,13 +152,15 @@ class FormTechnician extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-5">
                                 <Form.Label htmlFor="tecnico-bairro">Bairro*</Form.Label>
                                 <Form.Control type="text" name="tecnico-bairro" id="tecnico-bairro"
-                                    defaultValue={defaultTechnicianFormData?.bairro ?? address.bairro} required />
+                                              defaultValue={defaultTechnicianFormData?.bairro ?? address.bairro}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-5">
                                 <Form.Label htmlFor="tecnico-cidade">Cidade*</Form.Label>
                                 <Form.Control type="text" name="tecnico-cidade" id="tecnico-cidade"
-                                    defaultValue={defaultTechnicianFormData?.cidade ?? address.localidade} required />
+                                              defaultValue={defaultTechnicianFormData?.cidade ?? address.localidade}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-2">
@@ -175,14 +184,17 @@ class FormTechnician extends React.Component<Props, State> {
                         <Row>
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-celular">Celular*</Form.Label>
-                                <Form.Control type="tel" name="tecnico-celular" defaultValue={defaultTechnicianFormData?.celular} id="tecnico-celular"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)} required />
+                                <Form.Control type="tel" name="tecnico-celular"
+                                              defaultValue={defaultTechnicianFormData?.celular} id="tecnico-celular"
+                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-telefone">Telefone</Form.Label>
-                                <Form.Control type="tel" name="tecnico-telefone" defaultValue={defaultTechnicianFormData?.telefone} id="tecnico-telefone"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} />
+                                <Form.Control type="tel" name="tecnico-telefone"
+                                              defaultValue={defaultTechnicianFormData?.telefone} id="tecnico-telefone"
+                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)}/>
                             </Form.Group>
                         </Row>
                     </fieldset>
@@ -193,18 +205,19 @@ class FormTechnician extends React.Component<Props, State> {
                         <Row>
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-email">E-mail*</Form.Label>
-                                <Form.Control type="email" name="tecnico-email" id="tecnico-email" required />
+                                <Form.Control type="email" name="tecnico-email" id="tecnico-email" required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-senha">Senha*</Form.Label>
-                                <Form.Control type="password" name="tecnico-senha" id="tecnico-senha" required />
+                                <Form.Control type="password" name="tecnico-senha" id="tecnico-senha" required/>
                             </Form.Group>
                         </Row>
                     </fieldset>
 
                     <div className="d-flex justify-content-between">
-                        <Button variant="outline-secondary" onClick={() => this.props.setRegistrationStage("owner")}>Voltar</Button>
+                        <Button variant="outline-secondary"
+                                onClick={() => this.props.setRegistrationStage("owner")}>Voltar</Button>
                         <Button variant="success" type="submit">Finalizar</Button>
                     </div>
                 </Form>
@@ -218,20 +231,20 @@ class FormTechnician extends React.Component<Props, State> {
     }
 
     private loadUfs = async () => {
-        this.setState({ ufs: await Helpers.Address.loadUfs() });
+        this.setState({ufs: await Helpers.Address.loadUfs()});
     }
 
     private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
         evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
-            this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
+            this.setState({address: await Helpers.Address.loadAddress(evt.currentTarget.value)});
     }
 
     private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        const { setFormData, setRegistrationStage } = this.props;
+        const {setFormData, setRegistrationStage} = this.props;
 
         setFormData(new FormData(evt.currentTarget));
         setRegistrationStage("send");
@@ -239,4 +252,4 @@ class FormTechnician extends React.Component<Props, State> {
 }
 
 export default FormTechnician;
-export type { DefaultFormDataTechnician };
+export type {DefaultFormDataTechnician};

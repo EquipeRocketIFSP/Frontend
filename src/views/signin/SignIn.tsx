@@ -120,7 +120,7 @@ class SignIn extends React.Component<any, State> {
         });
 
         try {
-            await Axios.post(`${env.API}/cadastro-clinica`, data);
+            await Axios.post(`${env.API}/cadastro/clinica`, data);
 
             this.setState({ formStage: "sent" });
             setTimeout(() => this.setState({ redirect: "/" }), 3000);
