@@ -52,7 +52,11 @@ class Navbar extends React.Component<Props, State> {
                                         <Link to="/painel/agenda" className="nav-link">Agenda</Link>
                                         <Link to="/painel/tutores" className="nav-link">Tutores</Link>
                                         <Link to="/painel/animais" className="nav-link">Animais</Link>
-                                        <Link to="/painel/prontuarios" className="nav-link">Prontuários</Link>
+                                        {
+                                            userData.crmv ?
+                                                <Link to="/painel/prontuarios" className="nav-link">Prontuários</Link> :
+                                                <></>
+                                        }
                                     </Nav>
                                 ) : <></>
                         }
