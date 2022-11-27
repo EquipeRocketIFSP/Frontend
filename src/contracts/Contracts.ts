@@ -16,6 +16,11 @@ namespace Contracts {
         redirect: null | string
     }
 
+    export interface Breadcrumbs {
+        name: string,
+        pathname: string,
+    }
+
     export interface ViaCEPAddress {
         cep: string,
         logradouro: string,
