@@ -102,7 +102,10 @@ class RestrictedFormLayout extends React.Component<Props, State> {
 
                             <div className="d-flex justify-content-between">
                                 <Link className="btn btn-outline-secondary" to={redirectResource}>Voltar</Link>
-                                <Button variant="success" type="submit">Finalizar</Button>
+
+                                <Button variant="success" type="submit" className={formState == "loading" ? "disabled" : ""}>
+                                    {formState != "loading" ? "Finalizar" : <i className="fa-solid fa-spinner loading"/>}
+                                </Button>
                             </div>
                         </Form>
                     </Container>
@@ -125,6 +128,8 @@ class RestrictedFormLayout extends React.Component<Props, State> {
 
         if (beforeSubmit)
             beforeSubmit(data);
+
+        this.setState({formState: "loading"});
 
         try {
             await Axios.post(`${env.API}/${apiResource}`, data, {
