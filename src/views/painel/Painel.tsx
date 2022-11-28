@@ -36,12 +36,12 @@ class Painel extends React.Component {
                                 </Link>
                             </div>
 
-                            <div className="col-lg-3 col-md-3 col-sm-3 col-6">
+                            {/*<div className="col-lg-3 col-md-3 col-sm-3 col-6">
                                 <Link to="/painel/prontuarios/adicionar" className="shadow round d-flex flex-column align-items-center acesso-rapido-item">
                                     <i className="fa-regular fa-clipboard"></i>
                                     Criar Prontuário
                                 </Link>
-                            </div>
+                            </div>*/}
                         </Row>
                     </Container>
                 </main>
