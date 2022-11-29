@@ -69,7 +69,8 @@ class FormTutor extends React.Component<any, State> {
                         <Form.Group className="mb-3 col-lg-6">
                             <Form.Label htmlFor="cpf">CPF*</Form.Label>
                             <Form.Control type="tel" name="cpf" id="cpf"
-                                          onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)}
+                                          onInput={Helpers.Masks.cpf}
+                                          onBlur={Helpers.Masks.onBlurCpf}
                                           required/>
                         </Form.Group>
 
@@ -87,7 +88,9 @@ class FormTutor extends React.Component<any, State> {
                         <Form.Group className="mb-3 col-lg-2">
                             <Form.Label htmlFor="cep">CEP*</Form.Label>
                             <Form.Control type="tel" name="cep" id="cep"
-                                          onInput={this.onInputCep} required/>
+                                          onInput={this.onInputCep}
+                                          onBlur={Helpers.Masks.onBlurCep}
+                                          required/>
                         </Form.Group>
 
                         <Form.Group className="mb-3 col">
@@ -99,7 +102,7 @@ class FormTutor extends React.Component<any, State> {
                         <Form.Group className="mb-3 col-lg-2">
                             <Form.Label htmlFor="numero">Número*</Form.Label>
                             <Form.Control type="tel" name="numero" id="numero"
-                                          onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
+                                          onInput={Helpers.Masks.number}
                                           required/>
                         </Form.Group>
                     </Row>
@@ -141,14 +144,17 @@ class FormTutor extends React.Component<any, State> {
                         <Form.Group className="mb-3 col-lg-6">
                             <Form.Label htmlFor="celular">Celular*</Form.Label>
                             <Form.Control type="tel" name="celular" id="celular"
-                                          onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)}
+                                          onInput={Helpers.Masks.celphone}
+                                          onBlur={Helpers.Masks.onBlurCelphone}
                                           required/>
                         </Form.Group>
 
                         <Form.Group className="mb-3 col-lg-6">
                             <Form.Label htmlFor="telefone">Telefone</Form.Label>
                             <Form.Control type="tel" name="telefone" id="telefone"
-                                          onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)}/>
+                                          onInput={Helpers.Masks.phone}
+                                          onBlur={Helpers.Masks.onBlurPhone}
+                            />
                         </Form.Group>
                     </Row>
                 </fieldset>
@@ -168,7 +174,7 @@ class FormTutor extends React.Component<any, State> {
     }
 
     private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
-        evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
+        Helpers.Masks.cep(evt);
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
             this.setState({address: await Helpers.Address.loadAddress(evt.currentTarget.value)});

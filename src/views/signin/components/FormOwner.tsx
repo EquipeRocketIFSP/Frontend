@@ -2,14 +2,14 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import Components from "../../../components/Components";
 import Contracts from "../../../contracts/Contracts";
 import Helpers from "../../../helpers/Helpers";
-import { RegistrationStage } from "../SignIn";
+import {RegistrationStage} from "../SignIn";
 import Container from "react-bootstrap/Container";
-import { DefaultFormDataTechnician } from "./FormTechnician";
+import {DefaultFormDataTechnician} from "./FormTechnician";
 
 interface Props {
     fadeIn: boolean,
@@ -44,7 +44,7 @@ class FormOwner extends React.Component<Props, State> {
     }
 
     render(): React.ReactNode {
-        const { address, ufs } = this.state;
+        const {address, ufs} = this.state;
 
         return (
             <Container className={this.props.fadeIn ? "fade show" : "fade"}>
@@ -72,7 +72,7 @@ class FormOwner extends React.Component<Props, State> {
                         <Row>
                             <Form.Group className="mb-3 col-lg-12">
                                 <Form.Label htmlFor="dono-nome-fantasia">Nome*</Form.Label>
-                                <Form.Control type="text" name="dono-nome-fantasia" id="dono-nome-fantasia" required />
+                                <Form.Control type="text" name="dono-nome-fantasia" id="dono-nome-fantasia" required/>
                             </Form.Group>
                         </Row>
 
@@ -80,12 +80,14 @@ class FormOwner extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="dono-cpf">CPF*</Form.Label>
                                 <Form.Control type="tel" name="dono-cpf" id="dono-cpf"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)} required />
+                                              onInput={Helpers.Masks.cpf}
+                                              onBlur={Helpers.Masks.onBlurCpf}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="dono-rg">RG*</Form.Label>
-                                <Form.Control type="tel" name="dono-rg" id="dono-rg" required />
+                                <Form.Control type="tel" name="dono-rg" id="dono-rg" required/>
                             </Form.Group>
                         </Row>
                     </fieldset>
@@ -97,30 +99,35 @@ class FormOwner extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="dono-cep">CEP*</Form.Label>
                                 <Form.Control type="tel" name="dono-cep" id="dono-cep"
-                                    onInput={this.onInputCep} required />
+                                              onInput={this.onInputCep}
+                                              onBlur={Helpers.Masks.onBlurCep}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col">
                                 <Form.Label htmlFor="dono-logradouro">Logradouro*</Form.Label>
-                                <Form.Control type="text" name="dono-logradouro" id="dono-logradouro" defaultValue={address.logradouro} required />
+                                <Form.Control type="text" name="dono-logradouro" id="dono-logradouro"
+                                              defaultValue={address.logradouro} required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="dono-numero">Número*</Form.Label>
                                 <Form.Control type="tel" name="dono-numero" id="dono-numero"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)} required />
+                                              onInput={Helpers.Masks.number} required/>
                             </Form.Group>
                         </Row>
 
                         <Row>
                             <Form.Group className="mb-3 col-lg-5">
                                 <Form.Label htmlFor="dono-bairro">Bairro*</Form.Label>
-                                <Form.Control type="text" name="dono-bairro" id="dono-bairro" defaultValue={address.bairro} required />
+                                <Form.Control type="text" name="dono-bairro" id="dono-bairro"
+                                              defaultValue={address.bairro} required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-5">
                                 <Form.Label htmlFor="dono-cidade">Cidade*</Form.Label>
-                                <Form.Control type="text" name="dono-cidade" id="dono-cidade" defaultValue={address.localidade} required />
+                                <Form.Control type="text" name="dono-cidade" id="dono-cidade"
+                                              defaultValue={address.localidade} required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-2">
@@ -128,7 +135,8 @@ class FormOwner extends React.Component<Props, State> {
                                 <Form.Select name="dono-estado" id="dono-estado" required>
                                     <option value="">Selecione</option>
 
-                                    {ufs.map((uf) => <option value={uf.sigla} key={uf.id} selected={uf.sigla == address.uf}>{uf.sigla}</option>)}
+                                    {ufs.map((uf) => <option value={uf.sigla} key={uf.id}
+                                                             selected={uf.sigla == address.uf}>{uf.sigla}</option>)}
                                 </Form.Select>
                             </Form.Group>
                         </Row>
@@ -141,13 +149,17 @@ class FormOwner extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="dono-celular">Celular*</Form.Label>
                                 <Form.Control type="tel" name="dono-celular" id="dono-celular"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)} required />
+                                              onInput={Helpers.Masks.celphone}
+                                              onBlur={Helpers.Masks.onBlurCelphone}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="dono-telefone">Telefone</Form.Label>
                                 <Form.Control type="tel" name="dono-telefone" id="dono-telefone"
-                                    onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)} />
+                                              onInput={Helpers.Masks.phone}
+                                              onBlur={Helpers.Masks.onBlurPhone}
+                                />
                             </Form.Group>
                         </Row>
                     </fieldset>
@@ -158,22 +170,23 @@ class FormOwner extends React.Component<Props, State> {
                         <Row>
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="dono-email">E-mail*</Form.Label>
-                                <Form.Control type="email" name="dono-email" id="dono-email" required />
+                                <Form.Control type="email" name="dono-email" id="dono-email" required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="dono-senha">Senha*</Form.Label>
-                                <Form.Control type="password" name="dono-senha" id="dono-senha" required />
+                                <Form.Control type="password" name="dono-senha" id="dono-senha" required/>
                             </Form.Group>
                         </Row>
                     </fieldset>
 
                     <Row>
-                        <Form.Check type="checkbox" label="Sou responsável técnico" name="is-responsavel-tecnico" />
+                        <Form.Check type="checkbox" label="Sou responsável técnico" name="is-responsavel-tecnico"/>
                     </Row>
 
                     <div className="d-flex justify-content-between">
-                        <Button variant="outline-secondary" onClick={() => this.props.setRegistrationStage("clinic")}>Voltar</Button>
+                        <Button variant="outline-secondary"
+                                onClick={() => this.props.setRegistrationStage("clinic")}>Voltar</Button>
                         <Button type="submit">Continuar</Button>
                     </div>
                 </Form>
@@ -187,20 +200,20 @@ class FormOwner extends React.Component<Props, State> {
     }
 
     private loadUfs = async () => {
-        this.setState({ ufs: await Helpers.Address.loadUfs() });
+        this.setState({ufs: await Helpers.Address.loadUfs()});
     }
 
     private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
-        evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
+        Helpers.Masks.cep(evt);
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
-            this.setState({ address: await Helpers.Address.loadAddress(evt.currentTarget.value) });
+            this.setState({address: await Helpers.Address.loadAddress(evt.currentTarget.value)});
     }
 
     private onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        const { setFormData, setRegistrationStage } = this.props;
+        const {setFormData, setRegistrationStage} = this.props;
         const formData = new FormData(evt.currentTarget);
         let defaultTechnicianFormData: DefaultFormDataTechnician | null = null;
 

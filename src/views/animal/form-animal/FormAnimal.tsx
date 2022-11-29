@@ -64,7 +64,7 @@ class FormAnimal extends React.Component<any, State> {
                         <Form.Group className="mb-3 col-lg-1">
                             <Form.Label htmlFor="idade">Idade*</Form.Label>
                             <Form.Control type="text" name="idade" id="idade"
-                                          onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
+                                          onInput={Helpers.Masks.number}
                                           required/>
                         </Form.Group>
 

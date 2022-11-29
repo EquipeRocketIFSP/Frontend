@@ -101,7 +101,7 @@ class FormTechnician extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="tecnico-crmv">CRMV*</Form.Label>
                                 <Form.Control type="text" name="tecnico-crmv" id="tecnico-crmv"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.crmv(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.crmv}
                                               required/>
                             </Form.Group>
                         </Row>
@@ -110,7 +110,8 @@ class FormTechnician extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="tecnico-cpf">CPF*</Form.Label>
                                 <Form.Control type="tel" name="tecnico-cpf" id="tecnico-cpf"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cpf(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.cpf}
+                                              onBlur={Helpers.Masks.onBlurCpf}
                                               defaultValue={defaultTechnicianFormData?.cpf} required/>
                             </Form.Group>
 
@@ -130,7 +131,9 @@ class FormTechnician extends React.Component<Props, State> {
                                 <Form.Label htmlFor="tecnico-cep">CEP*</Form.Label>
                                 <Form.Control type="tel" name="tecnico-cep"
                                               defaultValue={defaultTechnicianFormData?.cep} id="tecnico-cep"
-                                              onInput={this.onInputCep} required/>
+                                              onInput={this.onInputCep}
+                                              onBlur={Helpers.Masks.onBlurCep}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col">
@@ -143,7 +146,7 @@ class FormTechnician extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="tecnico-numero">Número*</Form.Label>
                                 <Form.Control type="tel" name="tecnico-numero" id="tecnico-numero"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.number}
                                               defaultValue={defaultTechnicianFormData?.numero} required/>
                             </Form.Group>
                         </Row>
@@ -186,7 +189,8 @@ class FormTechnician extends React.Component<Props, State> {
                                 <Form.Label htmlFor="tecnico-celular">Celular*</Form.Label>
                                 <Form.Control type="tel" name="tecnico-celular"
                                               defaultValue={defaultTechnicianFormData?.celular} id="tecnico-celular"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.celphone}
+                                              onBlur={Helpers.Masks.onBlurCelphone}
                                               required/>
                             </Form.Group>
 
@@ -194,7 +198,9 @@ class FormTechnician extends React.Component<Props, State> {
                                 <Form.Label htmlFor="tecnico-telefone">Telefone</Form.Label>
                                 <Form.Control type="tel" name="tecnico-telefone"
                                               defaultValue={defaultTechnicianFormData?.telefone} id="tecnico-telefone"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)}/>
+                                              onInput={Helpers.Masks.phone}
+                                              onBlur={Helpers.Masks.onBlurPhone}
+                                />
                             </Form.Group>
                         </Row>
                     </fieldset>
@@ -235,7 +241,7 @@ class FormTechnician extends React.Component<Props, State> {
     }
 
     private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
-        evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
+        Helpers.Masks.cep(evt);
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
             this.setState({address: await Helpers.Address.loadAddress(evt.currentTarget.value)});

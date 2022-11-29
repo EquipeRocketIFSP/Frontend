@@ -80,14 +80,15 @@ class FormClinic extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="clinica-cnpj">CNPJ*</Form.Label>
                                 <Form.Control type="tel" name="clinica-cnpj" id="clinica-cnpj"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cnpj(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.cnpj}
+                                              onBlur={Helpers.Masks.onBlurCnpj}
                                               required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="clinica-cnae">CNAE*</Form.Label>
                                 <Form.Control type="tel" name="clinica-cnae" id="clinica-cnae"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.cnae(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.cnae}
                                               required/>
                             </Form.Group>
                         </Row>
@@ -100,7 +101,9 @@ class FormClinic extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="clinica-cep">CEP*</Form.Label>
                                 <Form.Control type="tel" name="clinica-cep" id="clinica-cep"
-                                              onInput={this.onInputCep} required/>
+                                              onInput={this.onInputCep}
+                                              onBlur={Helpers.Masks.onBlurCep}
+                                              required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col">
@@ -112,7 +115,7 @@ class FormClinic extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-2">
                                 <Form.Label htmlFor="clinica-numero">Número*</Form.Label>
                                 <Form.Control type="tel" name="clinica-numero" id="clinica-numero"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.number}
                                               required/>
                             </Form.Group>
                         </Row>
@@ -149,14 +152,17 @@ class FormClinic extends React.Component<Props, State> {
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="clinica-celular">Celular*</Form.Label>
                                 <Form.Control type="tel" name="clinica-celular" id="clinica-celular"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.celphone(evt.currentTarget.value)}
+                                              onInput={Helpers.Masks.celphone}
+                                              onBlur={Helpers.Masks.onBlurCelphone}
                                               required/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 col-lg-6">
                                 <Form.Label htmlFor="clinica-telefone">Telefone</Form.Label>
                                 <Form.Control type="tel" name="clinica-telefone" id="clinica-telefone"
-                                              onInput={(evt) => evt.currentTarget.value = Helpers.Masks.phone(evt.currentTarget.value)}/>
+                                              onInput={Helpers.Masks.phone}
+                                              onBlur={Helpers.Masks.onBlurPhone}
+                                />
                             </Form.Group>
                         </Row>
 
@@ -187,7 +193,7 @@ class FormClinic extends React.Component<Props, State> {
     }
 
     private onInputCep = async (evt: React.FormEvent<HTMLInputElement>) => {
-        evt.currentTarget.value = Helpers.Masks.cep(evt.currentTarget.value);
+        Helpers.Masks.cep(evt);
 
         if (evt.currentTarget.value.replace(/\D/gmi, "").length == 8)
             this.setState({address: await Helpers.Address.loadAddress(evt.currentTarget.value)});

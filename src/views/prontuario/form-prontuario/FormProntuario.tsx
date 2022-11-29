@@ -85,7 +85,7 @@ class FormProntuario extends React.Component<any, State> {
                         <Form.Group className="mb-3 col-lg-3">
                             <Form.Label htmlFor="quantidade">Quantidade</Form.Label>
                             <Form.Control type="tel" name="quantidade" id="quantidade"
-                                          onInput={(evt) => evt.currentTarget.value = Helpers.Masks.number(evt.currentTarget.value)}/>
+                                          onInput={Helpers.Masks.number}/>
                         </Form.Group>
 
                         <Form.Group className="mb-3 col-lg-3">

@@ -1,5 +1,9 @@
+import React from "react";
+
 class Masks {
-    static phone = (value: string, usesCelphone: boolean = false) => {
+    static phone = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, usesCelphone: boolean = false) => {
+        let {value} = evt.currentTarget;
+
         value = value.replace(/\D/g, "")
             .replace(/(\d{2})(\d)/, "($1) $2")
             .replace(/(\d{4})(\d)/, "$1-$2");
@@ -9,55 +13,94 @@ class Masks {
 
         value = value.replace(/(-\d{4})\d+?$/, "$1");
 
-        return value;
+        evt.currentTarget.value = value;
     }
 
-    static celphone = (value: string) => {
-        return value.replace(/\D/g, "")
+    static onBlurPhone = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (evt.currentTarget.value.length != 14)
+            evt.currentTarget.value = "";
+    }
+
+    static celphone = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value.replace(/\D/g, "")
             .replace(/(\d{2})(\d)/, "($1) $2")
             .replace(/(\d{5})(\d)/, "$1-$2")
             .replace(/(-\d{4})\d+?$/, "$1");
     }
 
-    static cep = (value: string) => value
-        .replace(/\D/g, "")
-        .replace(/(\d{5})(\d)/, "$1-$2")
-        .replace(/(-\d{3})\d+?$/, "$1");
+    static onBlurCelphone = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (evt.currentTarget.value.length != 15)
+            evt.currentTarget.value = "";
+    }
 
-    static number = (value: string) => value.replace(/\D/gmi, "");
+    static cep = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value
+            .replace(/\D/g, "")
+            .replace(/(\d{5})(\d)/, "$1-$2")
+            .replace(/(-\d{3})\d+?$/, "$1");
+    }
 
-    static price = (value: string) => value.replace(/\D/g, "")
-        .replace(/(\d+)(\d{2})/, "$1,$2")
-        .replace(/(\d+)(\d{3})/gmi, "$1.$2")
-        .replace(/(\d+)(\d{3})/gmi, "$1.$2")
-        .replace(/(\d+)(\d{3})/gmi, "$1.$2")
-        .replace(/(\d+)(\d{3})/gmi, "$1.$2");
+    static onBlurCep = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (evt.currentTarget.value.length != 9)
+            evt.currentTarget.value = "";
+    }
 
-    static cpf = (value: string) => value.replace(/\D/g, "")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1-$2")
-        .replace(/(-\d{2})\d+?$/, "$1");
+    static number = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value.replace(/\D/gmi, "");
+    }
 
-    static cnpj = (value: string) => value.replace(/\D/g, "")
-        .replace(/(\d{2})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1/$2")
-        .replace(/(\d{4})(\d)/, "$1-$2")
-        .replace(/(-\d{2})\d+?$/, "$1");
+    static price = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value.replace(/\D/g, "")
+            .replace(/(\d+)(\d{2})/, "$1,$2")
+            .replace(/(\d+)(\d{3})/gmi, "$1.$2")
+            .replace(/(\d+)(\d{3})/gmi, "$1.$2")
+            .replace(/(\d+)(\d{3})/gmi, "$1.$2")
+            .replace(/(\d+)(\d{3})/gmi, "$1.$2");
+    }
 
-    static crmv = (value: string) => value
-        .replace(/[^a-z0-9\-]+/gmi, "")
-        .replace(/(\D{2})(\D)/, "$1")
-        .replace(/(\D{2})(\d)/, "$1-$2")
-        .replace(/([a-z0-9\-]{8})([a-z0-9\-])/, "$1")
-        .toUpperCase();
+    static cpf = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value.replace(/\D/g, "")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1-$2")
+            .replace(/(-\d{2})\d+?$/, "$1");
+    }
 
-    static cnae = (value: string) => value
-        .replace(/\D/g, "")
-        .replace(/(\d{4})(\d)/, "$1-$2")
-        .replace(/(-\d)(\d)/, "$1/$2")
-        .replace(/(\/\d{2})(\d)/, "$1");
+    static onBlurCpf = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (evt.currentTarget.value.length < 14)
+            evt.currentTarget.value = "";
+    }
+
+    static cnpj = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value.replace(/\D/g, "")
+            .replace(/(\d{2})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1/$2")
+            .replace(/(\d{4})(\d)/, "$1-$2")
+            .replace(/(-\d{2})\d+?$/, "$1");
+    }
+
+    static onBlurCnpj = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (evt.currentTarget.value.length != 18)
+            evt.currentTarget.value = "";
+    }
+
+    static crmv = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value
+            .replace(/[^a-z0-9\-]+/gmi, "")
+            .replace(/(\D{2})(\D)/, "$1")
+            .replace(/(\D{2})(\d)/, "$1-$2")
+            .replace(/([a-z0-9\-]{8})([a-z0-9\-])/, "$1")
+            .toUpperCase();
+    }
+
+    static cnae = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        evt.currentTarget.value = evt.currentTarget.value
+            .replace(/\D/g, "")
+            .replace(/(\d{4})(\d)/, "$1-$2")
+            .replace(/(-\d)(\d)/, "$1/$2")
+            .replace(/(\/\d{2})(\d)/, "$1");
+    }
 }
 
 export default Masks;
