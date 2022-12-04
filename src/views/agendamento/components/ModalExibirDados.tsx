@@ -36,6 +36,7 @@ class ModalExibirDados extends React.Component<Props, State> {
                 {
                     data ? (
                         <Modal.Body>
+                            <label className="col-12"><b>Animal:</b> {data.animal}</label>
                             <label className="col-12"><b>Tipo da consulta:</b> {data.tipoConsulta}</label>
                             <label className="col-12">
                                 <b>Data da Consulta:</b> {new Date(data.dataConsulta).toLocaleString("pt")}

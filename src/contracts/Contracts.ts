@@ -80,6 +80,7 @@ namespace Contracts {
 
     export interface Agendamento {
         id: number,
+        animal: string,
         criadoEm: string,
         dataConsulta: string,
         tipoConsulta: string,
