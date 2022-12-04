@@ -12,7 +12,7 @@ import env from "../../../env";
 
 interface State {
     tutores: Contracts.Tutor[],
-    tutoresSelecionados: { id: number }[]
+    tutoresSelecionados: number[]
 }
 
 class FormAnimal extends React.Component<any, State> {
@@ -156,7 +156,7 @@ class FormAnimal extends React.Component<any, State> {
 
     private onChangeTutores = (data: MultiValue<{ value: number, label: string }>) => {
         const tutoresSelecionados = data.map(({value}) => {
-            return {id: value};
+            return value;
         });
 
         this.setState({tutoresSelecionados});
