@@ -3,19 +3,21 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/esm/Alert";
-import {Link, Navigate} from "react-router-dom";
-
-import Components from "../../../components/Components";
-import Contracts from "../../../contracts/Contracts";
-import Helpers from "../../../helpers/Helpers";
-import Layouts from "../../../layouts/Layouts";
+import {Link} from "react-router-dom";
 import Axios from "axios";
+import DatePicker from "react-datepicker";
+
+import Contracts from "../../../contracts/Contracts";
+import Layouts from "../../../layouts/Layouts";
 import Storages from "../../../Storages";
 import env from "../../../env";
 
+import "react-datepicker/dist/react-datepicker.css";
+
 interface State {
     animais: Contracts.ListingData[],
-    tutores: Contracts.ListingData[],
+    datasConsultas: Date[],
+    dataConsulta: Date,
 }
 
 class FormAgendamento extends React.Component <any, State> {
@@ -26,8 +28,9 @@ class FormAgendamento extends React.Component <any, State> {
         super(props);
 
         this.state = {
-            tutores: [],
-            animais: []
+            animais: [],
+            datasConsultas: [],
+            dataConsulta: new Date()
         };
 
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
@@ -39,7 +42,8 @@ class FormAgendamento extends React.Component <any, State> {
     }
 
     render(): React.ReactNode {
-        const {tutores, animais} = this.state;
+        const {datasConsultas, animais, dataConsulta} = this.state;
+        const hoje = new Date();
 
         return (
             <Layouts.RestrictedFormLayout
@@ -50,6 +54,7 @@ class FormAgendamento extends React.Component <any, State> {
                 title="Agendamento"
                 apiResource="agendamento"
                 redirectResource="/painel/agenda"
+                beforeSubmit={this.beforeSubmit}
             >
                 <fieldset>
                     <Row>
@@ -72,17 +77,50 @@ class FormAgendamento extends React.Component <any, State> {
                         </Form.Group>
                     </Row>
 
+                    <Form.Group className="mb-3 col-lg-12">
+                        <Form.Label htmlFor="tipoConsulta">Tipo da consulta*</Form.Label>
+
+                        <Form.Control type="text" name="tipoConsulta" id="tipoConsulta" required/>
+                    </Form.Group>
+
                     <Row>
-                        <Form.Group className="mb-3 col-lg-6">
+                        <Form.Group className="mb-3 col-lg-12">
                             <Form.Label htmlFor="dataConsulta">Data da consulta*</Form.Label>
-                            <Form.Control type="datetime-local" name="dataConsulta" id="dataConsulta"
-                                          required/>
-                        </Form.Group>
 
-                        <Form.Group className="mb-3 col-lg-6">
-                            <Form.Label htmlFor="tipoConsulta">Tipo da consulta*</Form.Label>
+                            <Row>
+                                <div className="mb-3 col-lg-6">
+                                    <div className="d-flex justify-content-center">
+                                        <DatePicker
+                                            selected={dataConsulta}
+                                            onChange={(dataConsulta) => this.setState({dataConsulta: dataConsulta ?? new Date()})}
+                                            minDate={hoje}
+                                            name="dataConsulta"
+                                            id="dataConsulta"
+                                            highlightDates={datasConsultas}
+                                            showPopperArrow
+                                            showTimeSelect
+                                            inline
+                                            required
+                                        />
+                                    </div>
+                                </div>
 
-                            <Form.Control type="text" name="tipoConsulta" id="tipoConsulta" required/>
+                                <div className="mb-3 col-lg-6">
+                                    <ul className="d-flex flex-column align-items-center" style={{padding: 0}}>
+                                        <h5 style={{textAlign:"center"}}>Horas marcadas no dia {dataConsulta.toLocaleDateString()}</h5>
+
+                                        {
+                                            datasConsultas.map((data) => {
+                                                if (dataConsulta.toLocaleDateString() != data.toLocaleDateString())
+                                                    return <></>;
+
+                                                return <li className="d-flex">{data.toLocaleTimeString()}</li>
+                                            })
+                                        }
+                                    </ul>
+                                </div>
+
+                            </Row>
                         </Form.Group>
                     </Row>
                 </fieldset>
@@ -94,6 +132,7 @@ class FormAgendamento extends React.Component <any, State> {
 
     componentDidMount() {
         this.carregarAnimais();
+        this.carregarConsultasMarcadas();
     }
 
     private carregarAnimais = async () => {
@@ -108,18 +147,23 @@ class FormAgendamento extends React.Component <any, State> {
         }
     }
 
-    private carregarTutores = async () => {
+    private carregarConsultasMarcadas = async () => {
         try {
-            const {data} = await Axios.get<Contracts.ListingData[]>(`${env.API}/tutor`, {
+            const {data} = await Axios.get<string[]>(`${env.API}/agendamento?consultas-marcadas=true`, {
                 headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
             });
 
-            console.log(data);
-
-            this.setState({tutores: data});
+            this.setState({datasConsultas: data.map((string) => new Date(string))});
         } catch (error) {
             console.error(error);
         }
+    }
+
+    private beforeSubmit = (data: Contracts.DynamicObject<any>) => {
+        const {dataConsulta} = {...this.state};
+        dataConsulta.setHours(dataConsulta.getHours() - 3);
+
+        data["dataConsulta"] = dataConsulta.toJSON();
     }
 }
 
