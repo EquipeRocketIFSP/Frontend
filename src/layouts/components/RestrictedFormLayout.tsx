@@ -103,8 +103,10 @@ class RestrictedFormLayout extends React.Component<Props, State> {
                             <div className="d-flex justify-content-between">
                                 <Link className="btn btn-outline-secondary" to={redirectResource}>Voltar</Link>
 
-                                <Button variant="success" type="submit" className={formState == "loading" ? "disabled" : ""}>
-                                    {formState != "loading" ? "Finalizar" : <i className="fa-solid fa-spinner loading"/>}
+                                <Button variant="success" type="submit"
+                                        className={formState == "loading" ? "disabled" : ""}>
+                                    {formState != "loading" ? "Finalizar" :
+                                        <i className="fa-solid fa-spinner loading"/>}
                                 </Button>
                             </div>
                         </Form>
@@ -146,10 +148,16 @@ class RestrictedFormLayout extends React.Component<Props, State> {
             const status = (error as AxiosError).response?.status;
 
             switch (status) {
+                case 400:
+                    this.setState({
+                        formState: "error",
+                        errorMessage: ((error as AxiosError).response?.data as string)
+                    });
+                    break;
+
                 case 401:
                     this.setState({
                         formState: "error",
-                        redirect: null,
                         errorMessage: "Usuário não autenticado."
                     });
                     break;
@@ -157,7 +165,6 @@ class RestrictedFormLayout extends React.Component<Props, State> {
                 default:
                     this.setState({
                         formState: "error",
-                        redirect: null,
                         errorMessage: "Não foi possivel concluir esse cadastro. Por favor tente mais tarde."
                     });
                     break;
