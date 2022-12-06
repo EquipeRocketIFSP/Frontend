@@ -16,6 +16,7 @@ import Storages from "../../../Storages";
 interface State {
     animais: Contracts.ListingData[],
     tutores: Contracts.ListingData[],
+    tutoresDesabilitar: boolean
 }
 
 class FormProntuario extends React.Component<any, State> {
@@ -28,7 +29,8 @@ class FormProntuario extends React.Component<any, State> {
 
         this.state = {
             tutores: [],
-            animais: []
+            animais: [],
+            tutoresDesabilitar: true
         };
 
         this.layoutFormContext = Layouts.RestrictedFormLayout.createLayoutFormContext();
@@ -41,7 +43,7 @@ class FormProntuario extends React.Component<any, State> {
     }
 
     render(): React.ReactNode {
-        const {tutores, animais} = this.state;
+        const {tutores, animais, tutoresDesabilitar} = this.state;
 
         return (
             <Layouts.RestrictedFormLayout
@@ -55,7 +57,7 @@ class FormProntuario extends React.Component<any, State> {
             >
                 <fieldset>
                     <Row>
-                        <Form.Group className="mb-3 col-lg-6">
+                        <Form.Group className="mb-3 col-lg-12">
                             <Form.Label>Veterinário*</Form.Label>
                             <Form.Control type="text" defaultValue={this.userData?.nome ?? ""} style={{opacity: 0.5}}
                                           readOnly/>
@@ -66,10 +68,20 @@ class FormProntuario extends React.Component<any, State> {
                         <Form.Group className="mb-3 col-lg-6">
                             <Form.Label htmlFor="animal">Animal*</Form.Label>
 
-                            <Form.Select name="animal" id="animal" required>
-                                <option value="">Selecione</option>
+                            <Form.Select name="animal" id="animal" onInput={this.onChangeAnimais} required>
+                                <option value="" disabled={!tutoresDesabilitar}>Selecione</option>
 
                                 {animais.map(({id, nome}) => <option value={id}>{nome}</option>)}
+                            </Form.Select>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3 col-lg-6">
+                            <Form.Label htmlFor="tutor">Tutor*</Form.Label>
+
+                            <Form.Select name="tutor" id="tutor" disabled={tutoresDesabilitar} required>
+                                <option value="">Selecione</option>
+
+                                {tutores.map(({id, nome}) => <option value={id}>{nome}</option>)}
                             </Form.Select>
                         </Form.Group>
                     </Row>
@@ -77,18 +89,23 @@ class FormProntuario extends React.Component<any, State> {
 
                 <fieldset>
                     <Row>
-                        <Form.Group className="mb-3 col-lg-6">
+                        <Form.Group className="mb-3 col-lg-12">
                             <Form.Label htmlFor="medicamento">Medicamento</Form.Label>
                             <Form.Control type="text" name="medicamento" id="medicamento"/>
                         </Form.Group>
 
-                        <Form.Group className="mb-3 col-lg-3">
+                        <Form.Group className="mb-3 col-lg-4">
+                            <Form.Label htmlFor="apresentacaoMedicamento">Apresentação do medicamento</Form.Label>
+                            <Form.Control type="text" name="apresentacaoMedicamento" id="apresentacaoMedicamento"/>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3 col-lg-4">
                             <Form.Label htmlFor="quantidade">Quantidade</Form.Label>
                             <Form.Control type="tel" name="quantidade" id="quantidade"
                                           onInput={Helpers.Masks.number}/>
                         </Form.Group>
 
-                        <Form.Group className="mb-3 col-lg-3">
+                        <Form.Group className="mb-3 col-lg-4">
                             <Form.Label htmlFor="medida">Unidade</Form.Label>
                             <Form.Control type="text" name="medida" id="medida"/>
                         </Form.Group>
@@ -110,7 +127,7 @@ class FormProntuario extends React.Component<any, State> {
                         </Form.Group>
 
                         <Form.Group className="mb-3 col-lg-6">
-                            <Form.Label htmlFor="asa">Asa</Form.Label>
+                            <Form.Label htmlFor="asa">Categoria do Paciente</Form.Label>
                             <Form.Select name="asa" id="asa">
                                 <option value="">Selecione</option>
                                 <option value="Asa 1">Asa 1</option>
@@ -120,19 +137,12 @@ class FormProntuario extends React.Component<any, State> {
                             </Form.Select>
                         </Form.Group>
                     </Row>
-
-                    {/*<Row>
-                                <Form.Group className="mb-3 col-lg-12">
-                                    <Form.Label htmlFor="asa">Categoria do Paciente</Form.Label>
-                                    <Form.Control type="text" name="categoria-paciente"/>
-                                </Form.Group>
-                            </Row>*/}
                 </fieldset>
 
                 <fieldset>
                     <Row>
                         <Form.Group className="mb-3 col-lg-12">
-                            <Form.Label htmlFor="diagnostico">Diagnostico</Form.Label>
+                            <Form.Label htmlFor="diagnostico">Diagnóstico</Form.Label>
                             <Form.Control as="textarea" name="diagnostico"/>
                         </Form.Group>
                     </Row>
@@ -195,7 +205,6 @@ class FormProntuario extends React.Component<any, State> {
 
     componentDidMount() {
         this.carregarAnimais();
-        //this.carregarTutores();
     }
 
     private carregarAnimais = async () => {
@@ -210,13 +219,21 @@ class FormProntuario extends React.Component<any, State> {
         }
     }
 
-    private carregarTutores = async () => {
+    private onChangeAnimais = (evt: React.FormEvent<HTMLSelectElement>) => {
+        const {value} = evt.currentTarget;
+
+        this.carregarTutores(parseInt(value));
+    }
+
+    private carregarTutores = async (id: number) => {
         try {
-            const {data} = await Axios.get<Contracts.ListingData[]>(`${env.API}/tutor`, {
+            this.setState({tutoresDesabilitar: true});
+
+            const {data} = await Axios.get<Contracts.ListingData[]>(`${env.API}/animal/${id}/tutores`, {
                 headers: {"Authorization": `Bearer ${Storages.userStorage.get()?.token}`}
             });
 
-            this.setState({tutores: data});
+            this.setState({tutores: data, tutoresDesabilitar: false});
         } catch (error) {
             console.error(error);
         }
